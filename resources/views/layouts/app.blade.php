@@ -172,6 +172,8 @@
         font_change("Public-Sans");
     </script>
 
+    @yield('scripts')
+
     {{-- SweetAlert 2 --}}
     @include('sweetalert::alert')
 </body>
