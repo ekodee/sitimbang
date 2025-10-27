@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
         Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
         Route::get('filter', [LaporanController::class, 'filter'])->name('laporan.filter');
         Route::get('laporan/excel', [LaporanController::class, 'excel'])->name('laporan.excel');
+        Route::get('laporan/pdf', [LaporanController::class, 'pdf'])->name('laporan.pdf');
     });
 
     // superadmin

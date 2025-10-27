@@ -29,7 +29,7 @@
                                 <label for="no_hp" class="form-label">Nomor Handphone</label>
                                 <input type="tel" class="form-control @error('no_hp') is-invalid @enderror"
                                     id="no_hp" name="no_hp" placeholder="0857XXXXXXXX" value="{{ old('no_hp') }}">
-                                @error('no_ktp')
+                                @error('no_hp')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
