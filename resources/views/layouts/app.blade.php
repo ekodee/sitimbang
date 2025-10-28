@@ -14,20 +14,24 @@
         content="Mantis, Dashboard UI Kit, Bootstrap 5, Admin Template, Admin Dashboard, CRM, CMS, Bootstrap Admin Template">
     <meta name="author" content="CodedThemes">
 
-    <!-- [Favicon] icon -->
-    <link rel="icon" href="{{ asset('template/dist') }}/assets/images/favicon.svg" type="image/x-icon">
     <!-- [Google Font] Family -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap"
         id="main-font-link">
     <!-- [Tabler Icons] https://tablericons.com -->
+    <link rel="preload" href="{{ asset('template/dist') }}/assets/fonts/tabler-icons.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/fonts/tabler-icons.min.css">
+
+    <!-- [Favicon] icon -->
+    {{-- <link rel="icon" href="{{ asset('template/dist') }}/assets/images/favicon.svg" type="image/x-icon"> --}}
     <!-- [Feather Icons] https://feathericons.com -->
-    <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/fonts/feather.css">
+    {{-- <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/fonts/feather.css"> --}}
     <!-- [Font Awesome Icons] https://fontawesome.com/icons -->
-    <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/fonts/fontawesome.css">
+    {{-- <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/fonts/fontawesome.css"> --}}
     <!-- [Material Icons] https://fonts.google.com/icons -->
-    <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/fonts/material.css">
+    {{-- <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/fonts/material.css"> --}}
+
     <!-- [Template CSS Files] -->
     <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/css/style.css" id="main-style-link">
     <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/css/style-preset.css">
@@ -43,18 +47,71 @@
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 
     @vite(['resources/js/app.js'])
+
+    <style>
+        /* Tambahkan ini untuk menjadi 'parent' dari loader */
+        .pc-container {
+            position: relative;
+        }
+
+        /* Modifikasi loader-bg */
+        .loader-bg {
+            position: absolute;
+            /* UBAH DARI 'fixed' */
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 999;
+            /* UBAH DARI '9999' */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        /* Hidden state (biarkan sama) */
+        .loader-bg.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Animasi lingkaran berputar (biarkan sama) */
+        .loader-fill {
+            width: 3rem;
+            height: 3rem;
+            border: 4px solid #4CAF50;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        /* Efek rotasi berulang (biarkan sama) */
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Teks loading tambahan (biarkan sama) */
+        .loader-text {
+            margin-top: 1rem;
+            color: #2e7d32;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+    </style>
 </head>
 <!-- [Head] end -->
 <!-- [Body] Start -->
 
 <body data-pc-preset="preset-1" data-pc-direction="ltr" data-pc-theme="light">
-    <!-- [ Pre-loader ] start -->
-    <div class="loader-bg">
-        <div class="loader-track">
-            <div class="loader-fill"></div>
-        </div>
-    </div>
-    <!-- [ Pre-loader ] End -->
+
     <!-- [ Sidebar Menu ] start -->
     <x-sidebar />
     <!-- [ Sidebar Menu ] end --> <!-- [ Header Topbar ] start -->
@@ -65,9 +122,16 @@
 
     <!-- [ Main Content ] start -->
     <div class="pc-container">
+        <!-- [ Pre-loader ] start -->
+        <div class="loader-bg">
+            {{-- <div class="loader-track"></div> --}}
+            <div class="loader-fill"></div>
+            <div class="loader-text">Memuat halaman SITIMBANG...</div>
+        </div>
+        <!-- [ Pre-loader ] End -->
         <div class="pc-content">
             <!-- [ breadcrumb ] start -->
-            <x-breadcrumbs />
+            {{-- <x-breadcrumbs /> --}}
             <!-- [ breadcrumb ] end -->
             <!-- [ Main Content ] start -->
             <div class="row">
@@ -95,17 +159,17 @@
     <script src="https://cdn.datatables.net/2.3.4/js/dataTables.min.js"></script>
 
     <script>
-        let table = new DataTable('#table');
+        // let table = new DataTable('#table');
 
-        // $(document).ready(function() {
-        //     $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
-        //         $("#success-alert").slideUp(500);
-        //     });
-        // })
+        // // $(document).ready(function() {
+        // //     $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
+        // //         $("#success-alert").slideUp(500);
+        // //     });
+        // // })
 
-        $('.myselect').select2({
-            theme: 'bootstrap-5'
-        });
+        // $('.myselect').select2({
+        //     theme: 'bootstrap-5'
+        // });
     </script>
 
     <!-- [Page Specific JS] start -->
@@ -128,10 +192,33 @@
         font_change("Public-Sans");
     </script>
 
+    <script>
+        window.addEventListener('load', function() {
+            const loader = document.querySelector('.loader-bg');
+            loader.classList.add('hidden');
+            setTimeout(() => loader.style.display = 'none', 500);
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && !href.startsWith('#') && !href.startsWith('javascript')) {
+                        document.querySelector('.loader-bg').classList.remove('hidden');
+                        document.querySelector('.loader-bg').style.display = 'flex';
+                    }
+                });
+            });
+        });
+    </script>
+
+
     @stack('scripts')
 
     {{-- SweetAlert 2 --}}
     @include('sweetalert::alert')
+    {{-- Icons Sprite SVG --}}
+    @include('partials.svg-sprite')
 </body>
 <!-- [Body] end -->
 

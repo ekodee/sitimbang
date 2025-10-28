@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('nama_petugas');
             $table->timestamps();
 
-            $table->foreign('truk_id')->references('truk_id')->on('truks')->onDelete('cascade');
-            $table->foreign('supir_id')->references('supir_id')->on('supirs')->onDelete('cascade');
+            $table->foreign('truk_id')->references('truk_id')->on('truks')->onDelete('restrict');
+            $table->foreign('supir_id')->references('supir_id')->on('supirs')->onDelete('restrict');
         });
     }
 
