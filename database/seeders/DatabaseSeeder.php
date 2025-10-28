@@ -22,46 +22,48 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        Truk::factory(5)->create();
-        Supir::factory(25)->create();
+        // Truk::factory(5)->create();
+        // Supir::factory(25)->create();
         // Timbangan::factory(100)->create();
 
-        $roles = ['superadmin', 'admin', 'operator'];
+        // $roles = ['superadmin', 'admin', 'operator'];
 
-        foreach ($roles as $role) {
-            Role::create([
-                'role_name' => $role
-            ]);
-        }
+        // foreach ($roles as $role) {
+        //     Role::create([
+        //         'role_name' => $role
+        //     ]);
+        // }
+
+        // User::create([
+        //     // 'role_id' => '2',
+        //     'name' => 'Admin DLH',
+        //     'email' => 'admin@teamdlh.com',
+        //     'email_verified_at' => now(),
+        //     'password' => Hash::make('password'),
+        //     'remember_token' => Str::random(10),
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
+
+        // User::create([
+        //     // 'role_id' => '3',
+        //     'name' => 'Operator DLH',
+        //     'email' => 'operator@teamdlh.com',
+        //     'email_verified_at' => now(),
+        //     'password' => Hash::make('password'),
+        //     'remember_token' => Str::random(10),
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
 
         User::create([
-            'role_id' => '2',
-            'name' => 'Admin DLH',
-            'email' => 'admin@teamdlh.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('password'),
-            'remember_token' => Str::random(10),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        User::create([
-            'role_id' => '3',
-            'name' => 'Operator DLH',
-            'email' => 'operator@teamdlh.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('password'),
-            'remember_token' => Str::random(10),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        User::create([
-            'role_id' => '1',
             'name' => 'Super Admin',
+            'username' => 'superadmin',
+            'nik' => '123123123',
+            'jabatan' => 'Admin Sistem',
             'email' => 'superadmin@teamdlh.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('password'),
+            'password' => Hash::make('Bersih@123'),
             'remember_token' => Str::random(10),
             'created_at' => now(),
             'updated_at' => now(),

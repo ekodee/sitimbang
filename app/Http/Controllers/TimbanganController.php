@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\DB;
 
 class TimbanganController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:timbangan-list|timbangan-create|timbangan-edit|timbangan-delete'], ['only' => ['index', 'show']]);
+        $this->middleware(['permission:timbangan-create'], ['only' => ['create', 'store']]);
+        $this->middleware(['permission:timbangan-edit'], ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:timbangan-delete'], ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -83,7 +90,8 @@ class TimbanganController extends Controller
     public function edit(string $id)
     {
         $timbangan = Timbangan::findOrFail($id);
-        return view('timbangan.edit', compact('timbangan'));
+        $truks = Truk::with('supirs')->get();
+        return view('timbangan.edit', compact('timbangan', 'truks'));
     }
 
     /**

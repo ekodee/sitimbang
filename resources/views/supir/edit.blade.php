@@ -11,7 +11,7 @@
             <div class="card-body">
                 <form method="POST" action="{{ route('supir.update', $supir->supir_id) }}">
                     @csrf
-                    @method('PATCH')
+                    @method('PUT')
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-3">

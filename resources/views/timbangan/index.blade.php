@@ -3,7 +3,9 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h2>Data Volume Sampah</h2>
-            <a href="{{ route('timbangan.create') }}" class="btn btn-primary" type="button">Tambah Data</a>
+            @can('timbangan-create')
+                <a href="{{ route('timbangan.create') }}" class="btn btn-success" type="button">Tambah Data</a>
+            @endcan
         </div>
         <div class="card-body">
             <table class="table table-hover" id="table">
@@ -21,12 +23,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @php
-                        $no = 1;
-                    @endphp
                     @foreach ($timbangans as $index => $timbangan)
                         <tr>
-                            <th scope="row">{{ $no }}</th>
+                            <td>{{ $loop->iteration }}</td>
                             <td sty>{{ $timbangan->created_at->format('d M Y') }}</td>
                             <td>{{ $timbangan->created_at->format('H:i') }}</td>
                             <td>{{ $timbangan->truks->no_polisi }}</td>
@@ -35,21 +34,24 @@
                             <td>{{ number_format($timbangan->berat_truk, 2, ',', '.') }}</td>
                             <td>{{ number_format($timbangan->berat_sampah, 2, ',', '.') }}</td>
                             <td class="text-nowrap">
-                                <button type="button" class="btn text-primary" data-bs-toggle="modal"
-                                    data-bs-target="#showDetailModal{{ $timbangan->timbangan_id }}">
-                                    <i class="ti ti-eye"></i>
-                                </button>
-                                {{-- <a href="{{ route('timbangan.edit', $timbangan->timbangan_id) }}"
-                                    class="btn text-warning"><i class="ti ti-edit"></i></a> --}}
-                                <button type="button" class="btn text-danger" data-bs-toggle="modal"
-                                    data-bs-target="#confirmDeleteModal{{ $timbangan->timbangan_id }}">
-                                    <i class="ti ti-trash"></i>
-                                </button>
+                                @can('timbangan-list')
+                                    <button type="button" class="btn text-primary" data-bs-toggle="modal"
+                                        data-bs-target="#showDetailModal{{ $timbangan->timbangan_id }}">
+                                        <i class="ti ti-eye"></i>
+                                    </button>
+                                @endcan
+                                @can('timbangan-edit')
+                                    <a href="{{ route('timbangan.edit', $timbangan->timbangan_id) }}"
+                                        class="btn text-warning"><i class="ti ti-edit"></i></a>
+                                @endcan
+                                @can('timbangan-delete')
+                                    <button type="button" class="btn text-danger" data-bs-toggle="modal"
+                                        data-bs-target="#confirmDeleteModal{{ $timbangan->timbangan_id }}">
+                                        <i class="ti ti-trash"></i>
+                                    </button>
+                                @endcan
                             </td>
                         </tr>
-                        @php
-                            $no++;
-                        @endphp
                     @endforeach
                 </tbody>
             </table>

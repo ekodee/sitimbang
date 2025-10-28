@@ -6,30 +6,34 @@
             <h2 class="card-title">Form Edit Data Timbangan</h2>
         </div>
         <div class="card-body">
-            <form action="{{ route('timbangan.store') }}" method="POST">
+            <form action="{{ route('timbangan.update', $timbangan->timbangan_id) }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="row">
                     {{-- Kolom 1 --}}
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="plat_nomer">Plat Nomer Truk</label>
-                            <input type="text"
-                                class="form-control @error('plat_nomer')
-                                is-invalid
-                            @enderror"
-                                name="plat_nomer" id="plat_nomer" value="{{ $timbangan->plat_nomer }}">
-                            @error('plat_nomer')
+                            <label for="no_polisi">Plat Nomer Truk</label>
+                            <select class="form-select myselect" id="no_polisiForm" name="no_polisi" required>
+                                <option value="">-- Pilih Plat Nomer --</option>
+                                @foreach ($truks as $truk)
+                                    <option value="{{ $truk->truk_id }}"
+                                        {{ old('no_polisi', $timbangan->truk_id) == $truk->truk_id ? 'selected' : '' }}>
+                                        {{ $truk->no_polisi }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('no_polisi')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="nama_supir">Nama Supir</label>
-                            <input type="text"
-                                class="form-control @error('nama_supir')
-                                is-invalid
-                            @enderror"
-                                name="nama_supir" id="nama_supir" value="{{ $timbangan->nama_supir }}">
+                            <select class="form-select" id="nama_supirForm" name="nama_supir">
+                                <option value="{{ old('nama_supir', $timbangan->nama_supir) }}">
+                                </option>
+                            </select>
                             @error('nama_supir')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -37,12 +41,8 @@
 
                         <div class="form-group">
                             <label for="jam_masuk">Jam Masuk</label>
-                            <input type="datetime"
-                                class="form-control @error('jam_masuk')
-                                'is-invalid'
-                            @enderror"
-                                name="jam_masuk" id="jam_masuk" value="{{ $timbangan->created_at->format('H:i') }}"
-                                readonly>
+                            <input type="time" class="form-control" name="jam_masuk" id="jam_masuk"
+                                value="{{ old('jam_masuk', now('Asia/Jakarta')->format('H:i')) }}" readonly>
                             @error('jam_masuk')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -51,12 +51,8 @@
 
                         <div class="form-group">
                             <label for="tanggal">Tanggal</label>
-                            <input type="text"
-                                class="form-control @error('tanggal')
-                                is-invalid
-                            @enderror"
-                                name="tanggal" id="tanggal" value="{{ $timbangan->created_at->format('Y-m-d') }}"
-                                readonly>
+                            <input type="time" class="form-control" name="tanggal" id="tanggal"
+                                value="{{ old('tanggal', now('Asia/Jakarta')->format('Y-m-d')) }}" readonly>
                             @error('tanggal')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -71,7 +67,7 @@
                                 class="form-control @error('berat_total')
                                 is-invalid
                             @enderror"
-                                value="{{ $timbangan->berat_total }}">
+                                value="{{ old('berat_total', $timbangan->berat_total) }}"">
                             @error('berat_total')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -79,11 +75,9 @@
 
                         <div class="form-group">
                             <label for="berat_truk">Berat Truk</label>
-                            <input type="number" name="berat_truk" id="berat_truk"
-                                class="form-control @error('berat_truk')
-                                is-invalid
-                            @enderror"
-                                value="{{ $timbangan->berat_truk }}">
+                            <input type="number" name="berat_truk" id="berat_trukForm"
+                                class="form-control @error('berat_truk') is-invalid @enderror"
+                                value="{{ old('berat_truk', $timbangan->berat_truk) }}">
                             @error('berat_truk')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -91,11 +85,8 @@
 
                         <div class="form-group">
                             <label for="berat_sampah">Berat Sampah</label>
-                            <input type="number" name="berat_sampah" id="berat_sampah"
-                                class="form-control @error('berat_sampah')
-                                'is-invalid'
-                            @enderror"
-                                readonly value="{{ $timbangan->berat_sampah }}">
+                            <input type="number" name="berat_sampah" id="berat_sampah" class="form-control"
+                                value="{{ old('berat_sampah', $timbangan->berat_sampah) }}" readonly>
                             @error('berat_sampah')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -103,11 +94,8 @@
 
                         <div class="form-group">
                             <label for="nama_petugas">Nama Petugas</label>
-                            <input type="text" name="nama_petugas" id="nama_petugas"
-                                class="form-control @error('nama_petugas')
-                                'is-invalid'
-                            @enderror"
-                                value="{{ Auth::user()->name }}">
+                            <input type="text" name="nama_petugas" id="nama_petugas" class="form-control"
+                                value="{{ old('nama_petugas', Auth::user()->name) }}">
                             @error('nama_petugas')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror

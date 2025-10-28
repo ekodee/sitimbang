@@ -56,13 +56,13 @@
                                 <h3 class="mb-0"><b>Login</b></h3>
                             </div>
                             <div class="form-group mb-3">
-                                <label class="form-label">Email Address</label>
-                                <input type="email" name="email"
-                                    class="form-control @error('email')
+                                <label class="form-label">Username</label>
+                                <input type="text" name="username"
+                                    class="form-control @error('username')
                                     is-invalid
                                 @enderror"
-                                    placeholder="Email Address">
-                                @error('email')
+                                    placeholder="Masukkan username">
+                                @error('username')
                                     {{ $message }}
                                 @enderror
                             </div>
