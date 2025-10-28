@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SupirController;
 use App\Http\Controllers\TimbanganController;
 use App\Http\Controllers\TrukController;
@@ -28,27 +29,22 @@ Route::middleware('auth')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // operator
-    Route::middleware('user-access:operator')->group(function () {
-        Route::resource('timbangan', TimbanganController::class);
-        Route::get('get/weight/{id}', [TimbanganController::class, 'getWeight'])->name('getWeight');
-        Route::get('get/driver/{id}', [TimbanganController::class, 'getDriver'])->name('getDriver');
-    });
+    Route::resource('timbangan', TimbanganController::class);
+    Route::get('get/weight/{id}', [TimbanganController::class, 'getWeight'])->name('getWeight');
+    Route::get('get/driver/{id}', [TimbanganController::class, 'getDriver'])->name('getDriver');
 
     // admin
-    Route::middleware('user-access:admin')->group(function () {
-        Route::resource('supir', SupirController::class);
-        Route::resource('truk', TrukController::class);
-        Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
-        Route::get('filter', [LaporanController::class, 'filter'])->name('laporan.filter');
-        Route::get('laporan/excel', [LaporanController::class, 'excel'])->name('laporan.excel');
-        Route::get('laporan/pdf', [LaporanController::class, 'pdf'])->name('laporan.pdf');
-    });
+    Route::resource('supir', SupirController::class);
+    Route::resource('truk', TrukController::class);
+    Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
+    Route::get('filter', [LaporanController::class, 'filter'])->name('laporan.filter');
+    Route::get('laporan/excel', [LaporanController::class, 'excel'])->name('laporan.excel');
+    Route::get('laporan/pdf', [LaporanController::class, 'pdf'])->name('laporan.pdf');
 
     // superadmin
-    Route::middleware('user-access:superadmin')->group(function () {
-        Route::resource('user', UserController::class);
-        Route::post('user-update-role', [UserController::class, 'updateRole'])->name('users.update-role');
-    });
+    Route::resource('user', UserController::class);
+    Route::resource('role', RoleController::class);
+    Route::post('user-update-role', [UserController::class, 'updateRole'])->name('users.update-role');
 });
 
 

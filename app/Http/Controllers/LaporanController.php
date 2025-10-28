@@ -11,6 +11,13 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class LaporanController extends Controller
 {
+      public function __construct()
+      {
+            $this->middleware(['permission:laporan-list|laporan-create|laporan-edit|laporan-delete'], ['only' => ['index', 'show']]);
+            $this->middleware(['permission:laporan-create'], ['only' => ['create', 'store']]);
+            $this->middleware(['permission:laporan-edit'], ['only' => ['edit', 'update']]);
+            $this->middleware(['permission:laporan-delete'], ['only' => ['destroy']]);
+      }
       public function index()
       {
             $timbangans = Timbangan::with(['truks', 'supirs'])->latest()->get();

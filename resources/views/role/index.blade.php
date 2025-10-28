@@ -3,43 +3,33 @@
 @section('content')
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h3 class="card-title">Manajemen User dan Role</h3>
+            <h3 class="card-title">Manajemen Role</h3>
             @can('role-create')
-                <a href="{{ route('user.create') }}" class="btn btn-success">Tambah Data</a>
+                <a href="{{ route('role.create') }}" class="btn btn-success">Tambah Data</a>
             @endcan
         </div>
         <div class="card-body">
             <table class="table table-sm" id="table">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Role</th>
+                        <th width="100px">No</th>
+                        <th>Nama Role</th>
                         <th width="200px">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $user)
+                    @foreach ($roles as $role)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->username }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>
-                                @foreach ($user->getRoleNames() as $role)
-                                    <span class="badge bg-success">{{ $role }}</span>
-                                @endforeach
-                            </td>
+                            <td>{{ $role->name }}</td>
                             <td>
                                 @can('role-edit')
-                                    <a href="{{ route('user.edit', $user->id) }}" class="btn text-warning"><i
+                                    <a href="{{ route('role.edit', $role->id) }}" class="btn text-warning"><i
                                             class="ti ti-edit"></i></a>
                                 @endcan
                                 @can('role-delete')
-                                    <button type="button" class="btn text-danger" data-bs-toggle="modal"
-                                        data-bs-target="#confirmDeleteModal{{ $user->id }}">
+                                    <button type="button" data-confirm-delete="true" class="btn text-danger"
+                                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $role->id }}">
                                         <i class="ti ti-trash"></i>
                                     </button>
                                 @endcan
@@ -51,9 +41,8 @@
         </div>
     </div>
 
-    {{-- Modal Hapus Role --}}
-    @foreach ($users as $user)
-        <div class="modal fade" id="confirmDeleteModal{{ $user->id }}" tabindex="-1"
+    @foreach ($roles as $role)
+        <div class="modal fade" id="confirmDeleteModal{{ $role->id }}" tabindex="-1"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -66,7 +55,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                        <form action="{{ route('user.destroy', $user->id) }}" method="POST">
+                        <form action="{{ route('role.destroy', $role->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Hapus</button>

@@ -16,22 +16,22 @@
                 </li>
 
                 {{-- Timbangan --}}
-                <li class="pc-item pc-caption">
-                    <label>Sampah</label>
-                    <i class="ti ti-dashboard"></i>
-                </li>
-                <li class="pc-item">
-                    <a href="{{ route('timbangan.index') }}" class="pc-link">
-                        <span class="pc-micon"><i class="ti ti-scale"></i></span>
-                        <span class="pc-mtext">Timbangan</span>
-                    </a>
-                </li>
+                @can('timbangan-list')
+                    <li class="pc-item pc-caption">
+                        <label>Sampah</label>
+                    </li>
+                    <li class="pc-item">
+                        <a href="{{ route('timbangan.index') }}" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-scale"></i></span>
+                            <span class="pc-mtext">Timbangan</span>
+                        </a>
+                    </li>
+                @endcan
 
-                @if (Auth::user()->role->role_name == 'admin' || Auth::user()->role->role_name == 'superadmin')
-                    {{-- Master Data --}}
+                {{-- Master Data --}}
+                @can('truk-list')
                     <li class="pc-item pc-caption">
                         <label>Master Data</label>
-                        <i class="ti ti-dashboard"></i>
                     </li>
                     <li class="pc-item">
                         <a href="{{ route('truk.index') }}" class="pc-link">
@@ -39,18 +39,21 @@
                             <span class="pc-mtext">Truk</span>
                         </a>
                     </li>
+                @endcan
+                @can('supir-list')
                     <li class="pc-item">
                         <a href="{{ route('supir.index') }}" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-user"></i></span>
                             <span class="pc-mtext">Supir</span>
                         </a>
                     </li>
+                @endcan
 
 
-                    {{-- Laporan --}}
+                {{-- Laporan --}}
+                @can('laporan-list')
                     <li class="pc-item pc-caption">
                         <label>Laporan</label>
-                        <i class="ti ti-dashboard"></i>
                     </li>
                     <li class="pc-item">
                         <a href="{{ route('laporan.index') }}" class="pc-link">
@@ -58,21 +61,28 @@
                             <span class="pc-mtext">Laporan </span>
                         </a>
                     </li>
-                @endif
+                @endcan
 
-                @if (Auth::user()->role->role_name == 'superadmin')
-                    {{-- Users & Role --}}
+                {{-- Users & Role --}}
+                @can('role-list')
                     <li class="pc-item pc-caption">
                         <label>Users</label>
                         <i class="ti ti-dashboard"></i>
                     </li>
                     <li class="pc-item">
                         <a href="{{ route('user.index') }}" class="pc-link">
-                            <span class="pc-micon"><i class="ti ti-users"></i></span>
-                            <span class="pc-mtext">Users & Role</span>
+                            <span class="pc-micon"><i class="ti ti-user-plus"></i></span>
+                            <span class="pc-mtext">Users</span>
                         </a>
                     </li>
-                @endif
+                    <li class="pc-item">
+                        <a href="{{ route('role.index') }}" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-lock-access"></i></span>
+                            <span class="pc-mtext">Role</span>
+                        </a>
+                    </li>
+                @endcan
+
             </ul>
         </div>
     </div>

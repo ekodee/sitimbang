@@ -106,50 +106,6 @@
         $('.myselect').select2({
             theme: 'bootstrap-5'
         });
-
-        $('#no_polisiForm').change(function() {
-            var truk_id = $(this).val();
-            console.log(truk_id);
-
-            var url1 = '{{ route('getWeight', ':id') }}';
-            url1 = url1.replace(':id', truk_id);
-
-            var url2 = '{{ route('getDriver', ':id') }}';
-            url2 = url2.replace(':id', truk_id);
-
-            /* Ajax untuk get data truks (mengambil berat truk) */
-            $.ajax({
-                url: url1,
-                type: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                    if (response != null) {
-                        console.log("reponse dari truk : ", response);
-                        $('#berat_trukForm').val(response.berat_truk);
-                    }
-                }
-            });
-
-            /* Ajax untuk get data supirs (mengambil nama supir) */
-            $.ajax({
-                url: url2,
-                type: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                    if (response != null) {
-                        console.log("reponse dari supir : ", response);
-                        $('#nama_supirForm').empty();
-                        $('#nama_supirForm').append('<option value="">Pilih Supir</option>');
-                        $.each(response, function(key, supir) {
-                            console.log(supir.nama);
-                            $('#nama_supirForm').append('<option value="' + supir.supir_id +
-                                '">' + supir.nama + '</option>');
-                        });
-                    }
-                }
-            });
-
-        });
     </script>
 
     <!-- [Page Specific JS] start -->
@@ -172,7 +128,7 @@
         font_change("Public-Sans");
     </script>
 
-    @yield('scripts')
+    @stack('scripts')
 
     {{-- SweetAlert 2 --}}
     @include('sweetalert::alert')

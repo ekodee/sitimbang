@@ -3,27 +3,28 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Form Tambah Data User</h3>
+            <h3 class="card-title">Form Edit Data User</h3>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route('user.store') }}">
+            <form method="POST" action="{{ route('user.update', $user->id) }}">
                 @csrf
+                @method('PUT')
                 {{-- Nama Lengkap --}}
                 <div class="form-group mb-3">
                     <label class="form-label" for="name">Nama Lengkap</label>
                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                        name="name" value="{{ old('name') }}" required autocomplete="name" autofocus
+                        name="name" value="{{ old('name', $user->name) }}" required autofocus
                         placeholder="Masukkan nama lengkap">
                     @error('name')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
 
-                {{-- Usernamae --}}
+                {{-- Username --}}
                 <div class="form-group mb-3">
                     <label class="form-label" for="username">Username</label>
                     <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"
-                        name="username" value="{{ old('username') }}" required autocomplete="username" autofocus
+                        name="username" value="{{ old('username', $user->username) }}" required
                         placeholder="Masukkan username">
                     @error('username')
                         <small class="text-danger">{{ $message }}</small>
@@ -34,8 +35,7 @@
                 <div class="form-group mb-3">
                     <label class="form-label" for="nik">NIK/NIP</label>
                     <input id="nik" type="text" class="form-control @error('nik') is-invalid @enderror"
-                        name="nik" value="{{ old('nik') }}" autocomplete="nik" autofocus
-                        placeholder="Masukkan NIK/NIP">
+                        name="nik" value="{{ old('nik', $user->nik) }}" placeholder="Masukkan NIK/NIP">
                     @error('nik')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -43,10 +43,9 @@
 
                 {{-- Jabatan --}}
                 <div class="form-group mb-3">
-                    <label class="form-label" for="nik">Jabatan</label>
+                    <label class="form-label" for="jabatan">Jabatan</label>
                     <input id="jabatan" type="text" class="form-control @error('jabatan') is-invalid @enderror"
-                        name="jabatan" value="{{ old('jabatan') }}" autocomplete="jabatan" autofocus
-                        placeholder="Masukkan Jabatan">
+                        name="jabatan" value="{{ old('jabatan', $user->jabatan) }}" placeholder="Masukkan Jabatan">
                     @error('jabatan')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -54,10 +53,9 @@
 
                 {{-- Email --}}
                 <div class="form-group mb-3">
-                    <label class="form-label" for="email">Email Address</label>
+                    <label class="form-label" for="email">Email</label>
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                        name="email" value="{{ old('email') }}" required autocomplete="email"
-                        placeholder="Email Address">
+                        name="email" value="{{ old('email', $user->email) }}" required placeholder="Masukkan email">
                     @error('email')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -65,10 +63,10 @@
 
                 {{-- Password --}}
                 <div class="form-group mb-3">
-                    <label class="form-label" for="password">Password</label>
+                    <label class="form-label" for="password">Password Baru</label>
                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                        name="password" required autocomplete="new-password" placeholder="Password"
-                        value="{{ old('password') }}">
+                        name="password" autocomplete="new-password"
+                        placeholder="Kosongkan jika tidak ingin mengubah password">
                     @error('password')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -80,7 +78,7 @@
                     <select class="form-select myselect" id="role" name="roles[]" multiple="multiple">
                         @foreach ($roles as $role)
                             <option value="{{ $role->name }}"
-                                {{ collect(old('roles'))->contains($role->id) ? 'selected' : '' }}>
+                                {{ collect(old('roles', $user->roles->pluck('name')))->contains($role->name) ? 'selected' : '' }}>
                                 {{ $role->name }}
                             </option>
                         @endforeach
@@ -91,7 +89,7 @@
                 </div>
 
                 <div class="d-grid mt-3">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-primary">Perbarui Akun</button>
                 </div>
             </form>
         </div>

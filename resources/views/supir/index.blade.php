@@ -5,7 +5,9 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h2>Master Data Supir</h2>
-                <a href="{{ route('supir.create') }}" class="btn btn-primary" role="button">Tambah Data</a>
+                @can('supir-create')
+                    <a href="{{ route('supir.create') }}" class="btn btn-success" role="button">Tambah Data</a>
+                @endcan
             </div>
             <div class="card-body">
                 <table class="table table-hover" id="table">
@@ -20,25 +22,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @php($no = 1)
                         @foreach ($supirs as $index => $supir)
                             <tr>
-                                <td>{{ $no }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $supir->nama }}</td>
                                 <td>{{ $supir->no_ktp }}</td>
                                 <td>{{ $supir->no_hp }}</td>
                                 <td>{{ $supir->truks?->no_polisi ?? 'No polisi belum di set' }}
                                 </td>
                                 <td>
-                                    <a href="{{ route('supir.edit', $supir->supir_id) }}" class="btn text-warning"><i
-                                            class="ti ti-edit"></i></a>
-                                    <button type="button" class="btn text-danger" data-bs-toggle="modal"
-                                        data-bs-target="#confirmDeleteModal{{ $supir->supir_id }}">
-                                        <i class="ti ti-trash"></i>
-                                    </button>
+                                    @can('supir-edit')
+                                        <a href="{{ route('supir.edit', $supir->supir_id) }}" class="btn text-warning"><i
+                                                class="ti ti-edit"></i></a>
+                                    @endcan
+                                    @can('supir-delete')
+                                        <button type="button" class="btn text-danger" data-bs-toggle="modal"
+                                            data-bs-target="#confirmDeleteModal{{ $supir->supir_id }}">
+                                            <i class="ti ti-trash"></i>
+                                        </button>
+                                    @endcan
                                 </td>
                             </tr>
-                            @php($no++)
                         @endforeach
                     </tbody>
                 </table>

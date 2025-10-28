@@ -5,7 +5,9 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h2 class="card-title">Master Data Truk</h2>
-                <a href="{{ route('truk.create') }}" class="btn btn-primary" role="button">Tambah Data</a>
+                @can('truk-create')
+                    <a href="{{ route('truk.create') }}" class="btn btn-success" role="button">Tambah Data</a>
+                @endcan
             </div>
             <div class="card-body">
                 <table class="table table-hover" id="table">
@@ -19,23 +21,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @php($no = 1)
                         @foreach ($truks as $index => $truk)
                             <tr>
-                                <td>{{ $no }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $truk->no_polisi }}</td>
                                 <td>{{ $truk->jenis_truk }}</td>
                                 <td>{{ $truk->berat_truk }}</td>
                                 <td>
-                                    <a href="{{ route('truk.edit', $truk->truk_id) }}" class="btn text-warning"><i
-                                            class="ti ti-edit"></i></a>
-                                    <button type="button" class="btn text-danger" data-bs-toggle="modal"
-                                        data-bs-target="#confirmDeleteModal{{ $truk->truk_id }}">
-                                        <i class="ti ti-trash"></i>
-                                    </button>
+                                    @can('truk-edit')
+                                        <a href="{{ route('truk.edit', $truk->truk_id) }}" class="btn text-warning"><i
+                                                class="ti ti-edit"></i></a>
+                                    @endcan
+                                    @can('truk-delete')
+                                        <button type="button" class="btn text-danger" data-bs-toggle="modal"
+                                            data-bs-target="#confirmDeleteModal{{ $truk->truk_id }}">
+                                            <i class="ti ti-trash"></i>
+                                        </button>
+                                    @endcan
                                 </td>
                             </tr>
-                            @php($no++)
                         @endforeach
                     </tbody>
                 </table>

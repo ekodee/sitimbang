@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class TrukController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:truk-list|truk-create|truk-edit|truk-delete'], ['only' => ['index', 'show']]);
+        $this->middleware(['permission:truk-create'], ['only' => ['create', 'store']]);
+        $this->middleware(['permission:truk-edit'], ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:truk-delete'], ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class SupirController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:supir-list|supir-create|supir-edit|supir-delete'], ['only' => ['index', 'show']]);
+        $this->middleware(['permission:supir-create'], ['only' => ['create', 'store']]);
+        $this->middleware(['permission:supir-edit'], ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:supir-delete'], ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */
