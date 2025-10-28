@@ -110,10 +110,16 @@ class SupirController extends Controller
      */
     public function destroy(string $id)
     {
-        $supir = Supir::findOrFail($id);
+        $supir = Supir::with('timbangans')->findOrFail($id);
+
+        if ($supir->timbangans()->exists()) {
+            toast('Supir tidak dapat dihapus karena masih memiliki data timbangan.', 'error');
+            return redirect()->route('supir.index');
+        }
+
         $supir->delete();
 
         toast('Data berhasil dihapus!', 'success');
-        return redirect()->route('supir.index')->with('success', 'Data supir berhasil dihapus');
+        return redirect()->route('supir.index');
     }
 }

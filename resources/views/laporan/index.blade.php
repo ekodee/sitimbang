@@ -69,7 +69,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $timbangan->created_at->format('d-m-Y H:i') }}</td>
-                            <td>{{ $timbangan->supirs->nama }}</td>
+                            <td>{{ $timbangan->supirs?->nama }}</td>
                             <td>{{ $timbangan->truks->no_polisi }}</td>
                             <td>{{ $timbangan->truks->jenis_truk }}</td>
                             <td>{{ $timbangan->truks->berat_truk }}</td>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('jenis_truk', 50);
             $table->decimal('berat_truk', 10, 2);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

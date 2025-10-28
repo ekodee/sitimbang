@@ -113,7 +113,14 @@ class TrukController extends Controller
      */
     public function destroy(string $id)
     {
-        $truk = Truk::findOrFail($id);
+
+        $truk = Truk::with('timbangans')->findOrFail($id);
+
+        if ($truk->timbangans()->exists()) {
+            toast('Truk tidak dapat dihapus karena sudah masuk dalam data timbangan', 'error');
+            return redirect()->route('truk.index');
+        }
+
         $truk->delete();
 
         toast('Data berhasil dihapus!', 'success');

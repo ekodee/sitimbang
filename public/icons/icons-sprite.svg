@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-lock-access" viewBox="0 0 24 24">
+        <path stroke="none" fill="none" d="M0 0h24v24H0z" />
+        <path stroke="currentColor" d="M4 8v-2a2 2 0 0 1 2 -2h2" />
+        <path stroke="currentColor" d="M4 16v2a2 2 0 0 0 2 2h2" />
+        <path stroke="currentColor" d="M16 4h2a2 2 0 0 1 2 2v2" />
+        <path stroke="currentColor" d="M16 20h2a2 2 0 0 0 2 -2v-2" />
+        <path stroke="currentColor" d="M8 12h8v3h-8z" />
+        <path stroke="currentColor" d="M10 11v-2a2 2 0 1 1 4 0v2" />
+    </symbol>
+
+    <symbol id="icon-user-plus" viewBox="0 0 24 24">
+        <path stroke="none" fill="none" d="M0 0h24v24H0z" />
+        <path stroke="currentColor" d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+        <path stroke="currentColor" d="M16 19h6" />
+        <path stroke="currentColor" d="M19 16v6" />
+        <path stroke="currentColor" d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+    </symbol>
+
+    <symbol id="icon-report" viewBox="0 0 24 24">
+        <path stroke="none" fill="none" d="M0 0h24v24H0z" />
+        <path stroke="currentColor" d="M8 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h5.7" />
+        <path stroke="currentColor" d="M18 14v4h4" />
+        <path stroke="currentColor" d="M18 11v-4a2 2 0 0 0 -2 -2h-2" />
+        <path stroke="currentColor" d="M8 3a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+        <path stroke="currentColor" d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+        <path stroke="currentColor" d="M8 11h4" />
+        <path stroke="currentColor" d="M8 15h3" />
+    </symbol>
+
+    <symbol id="icon-user" viewBox="0 0 24 24">
+        <path stroke="none" fill="none" d="M0 0h24v24H0z" />
+        <path stroke="currentColor" d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+        <path stroke="currentColor" d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+    </symbol>
+
+    <symbol id="icon-truck" viewBox="0 0 24 24">
+        <path stroke="none" fill="none" d="M0 0h24v24H0z" />
+        <path stroke="currentColor" d="M7 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+        <path stroke="currentColor" d="M17 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+        <path stroke="currentColor" d="M5 17h-2v-11a1 1 0 0 1 1 -1h9v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
+    </symbol>
+
+    <symbol id="icon-scale" viewBox="0 0 24 24">
+        <path stroke="none" fill="none" d="M0 0h24v24H0z" />
+        <path stroke="currentColor" d="M7 20h10" />
+        <path stroke="currentColor" d="M6 6l6 -1l6 1" />
+        <path stroke="currentColor" d="M12 3v17" />
+        <path stroke="currentColor" d="M9 12l-3 -6l-3 6a3 3 0 0 0 6 0" />
+        <path stroke="currentColor" d="M21 12l-3 -6l-3 6a3 3 0 0 0 6 0" />
+    </symbol>
+
+    <symbol id="icon-menu-2" viewBox="0 0 24 24">
+        <path stroke="none" fill="none" d="M0 0h24v24H0z" />
+        <path stroke="currentColor" d="M4 6h16" />
+        <path stroke="currentColor" d="M4 12h16" />
+        <path stroke="currentColor" d="M4 18h16" />
+    </symbol>
+
+    <symbol id="icon-home" viewBox="0 0 24 24">
+        <path stroke="none" fill="none" d="M0 0h24v24H0z" />
+        <path stroke="currentColor" d="M5 12l-2 0l9 -9l9 9l-2 0" />
+        <path stroke="currentColor" d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+        <path stroke="currentColor" d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+    </symbol>
+</svg>

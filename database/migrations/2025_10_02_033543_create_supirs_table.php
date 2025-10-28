@@ -18,8 +18,9 @@ return new class extends Migration
             $table->string('no_ktp', 20);
             $table->string('no_hp', 20);
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->foreign('truk_id')->references('truk_id')->on('truks')->onDelete('cascade');
+            $table->foreign('truk_id')->references('truk_id')->on('truks')->onDelete('set null');
         });
     }
 
