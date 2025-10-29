@@ -20,7 +20,7 @@ class SupirController extends Controller
      */
     public function index()
     {
-        $supirs = Supir::with('truks')->get();
+        $supirs = Supir::with('truks')->latest()->get();
         return view('supir.index', compact('supirs'));
     }
 
@@ -81,7 +81,8 @@ class SupirController extends Controller
     public function edit(string $id)
     {
         $supir = Supir::find($id);
-        return view('supir.edit', compact('supir'));
+        $truks = Truk::get();
+        return view('supir.edit', compact('supir', 'truks'));
     }
 
     /**

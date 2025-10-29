@@ -42,28 +42,24 @@
     {{-- Jquery --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" /> --}}
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 
     @vite(['resources/js/app.js'])
 
     <style>
-        /* Tambahkan ini untuk menjadi 'parent' dari loader */
         .pc-container {
             position: relative;
         }
 
-        /* Modifikasi loader-bg */
         .loader-bg {
-            position: absolute;
-            /* UBAH DARI 'fixed' */
+            position: fixed;
             inset: 0;
             width: 100%;
             height: 100%;
             background: rgba(255, 255, 255, 0.95);
             z-index: 999;
-            /* UBAH DARI '9999' */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -71,13 +67,11 @@
             transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
-        /* Hidden state (biarkan sama) */
         .loader-bg.hidden {
             opacity: 0;
             visibility: hidden;
         }
 
-        /* Animasi lingkaran berputar (biarkan sama) */
         .loader-fill {
             width: 3rem;
             height: 3rem;
@@ -87,7 +81,6 @@
             animation: spin 0.8s linear infinite;
         }
 
-        /* Efek rotasi berulang (biarkan sama) */
         @keyframes spin {
             0% {
                 transform: rotate(0deg);
@@ -98,7 +91,6 @@
             }
         }
 
-        /* Teks loading tambahan (biarkan sama) */
         .loader-text {
             margin-top: 1rem;
             color: #2e7d32;
@@ -159,7 +151,7 @@
     <script src="https://cdn.datatables.net/2.3.4/js/dataTables.min.js"></script>
 
     <script>
-        // let table = new DataTable('#table');
+        let table = new DataTable('#table');
 
         // // $(document).ready(function() {
         // //     $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
@@ -167,9 +159,9 @@
         // //     });
         // // })
 
-        // $('.myselect').select2({
-        //     theme: 'bootstrap-5'
-        // });
+        $('.myselect').select2({
+            theme: 'bootstrap-5'
+        });
     </script>
 
     <!-- [Page Specific JS] start -->

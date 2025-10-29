@@ -22,7 +22,7 @@ class TimbanganController extends Controller
      */
     public function index()
     {
-        $timbangans = Timbangan::with(['truks', 'supirs'])->get();
+        $timbangans = Timbangan::with(['truks', 'supirs'])->latest()->get();
         return view('timbangan.index', compact('timbangans'));
     }
 
@@ -43,7 +43,7 @@ class TimbanganController extends Controller
         $request->validate([
             'no_polisi'    => 'required|integer|exists:truks,truk_id',
             'nama_supir'   => 'nullable|integer|exists:supirs,supir_id',
-            'berat_total'  => 'required|numeric|gt:0|max:99999999.99', // batas 8 digit sebelum koma
+            'berat_total'  => 'required|numeric|gt:0|max:99999999.99',
             'berat_truk'   => 'required|numeric|gt:0|max:99999999.99',
             'berat_sampah' => 'required|numeric|gt:0|max:99999999.99',
             'nama_petugas' => 'required|string|max:100',
@@ -97,8 +97,9 @@ class TimbanganController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Timbangan $timbangan)
     {
+        // dd($request->all());
         $request->validate([
             'no_polisi'    => 'required|integer|exists:truks,truk_id',
             'nama_supir'   => 'nullable|integer|exists:supirs,supir_id',
@@ -118,6 +119,19 @@ class TimbanganController extends Controller
             'nama_petugas.required' => 'Nama petugas wajib diisi.',
             'status.in'            => 'Status hanya boleh: pending, selesai, atau dibatalkan.',
         ]);
+
+        $timbangan->update([
+            "truk_id" => $request->no_polisi,
+            "supir_id" => $request->nama_supir,
+            "status" => $request->status,
+            "berat_total" => $request->berat_total,
+            "berat_truk" => $request->berat_truk,
+            "berat_sampah" => $request->berat_sampah,
+            "nama_petugas" => $request->nama_petugas,
+        ]);
+
+        toast('Data berhasil diperbarui!', 'success');
+        return redirect()->route('timbangan.index');
     }
 
     /**

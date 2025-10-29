@@ -17,8 +17,8 @@
                             <th>Nama</th>
                             <th>Nomor KTP</th>
                             <th>Nomor HP</th>
-                            <th>Nomor Plat Kendaraan</th>
-                            <th>Aksi</th>
+                            <th>Nomor Plat</th>
+                            <th width="200px">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
