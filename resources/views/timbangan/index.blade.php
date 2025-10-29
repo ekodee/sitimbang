@@ -19,7 +19,7 @@
                         <th scope="col">Berat Total</th>
                         <th scope="col">Berat Truk</th>
                         <th scope="col">Volume Sampah</th>
-                        <th scope="col">Aksi</th>
+                        <th scope="col" width="200px">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -93,42 +93,42 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <table class="table table-striped-columns table-success">
+                        <table class="table ">
                             <tr>
-                                <th scope="row">Status</th>
-                                <td>{{ $timbangan->status }}</td>
+                                <th scope="row" width="150px">Status</th>
+                                <td>: {{ $timbangan->status }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Tanggal</th>
-                                <td>{{ $timbangan->created_at->format('d M Y') }}</td>
+                                <td>: {{ $timbangan->created_at->format('d M Y') }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Jam</th>
-                                <td>{{ $timbangan->created_at->format('H:i:s') }}</td>
+                                <td>: {{ $timbangan->created_at->format('H:i:s') }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Plat Nomor</th>
-                                <td>{{ $timbangan->truks->no_polisi }}</td>
+                                <td>: {{ $timbangan->truks->no_polisi }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Supir</th>
-                                <td>{{ $timbangan->supirs?->nama ?? '-' }}</td>
+                                <td>: {{ $timbangan->supirs?->nama ?? '-' }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Berat Total</th>
-                                <td>{{ $timbangan->berat_total }}</td>
+                                <td>: {{ $timbangan->berat_total }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Berat Truk</th>
-                                <td>{{ $timbangan->berat_truk }}</td>
+                                <td>: {{ $timbangan->berat_truk }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Berat Sampah</th>
-                                <td>{{ $timbangan->berat_sampah }}</td>
+                                <td>: {{ $timbangan->berat_sampah }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Petugas</th>
-                                <td>{{ $timbangan->nama_petugas }}</td>
+                                <td>: {{ $timbangan->nama_petugas }}</td>
                             </tr>
                         </table>
                     </div>

@@ -13,11 +13,11 @@
                 <table class="table table-hover" id="table">
                     <thead>
                         <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Nomor Polisi</th>
-                            <th scope="col">Jenis Truk</th>
-                            <th scope="col">Berat Truk</th>
-                            <th scope="col">Aksi</th>
+                            <th scope="col" align="center">No</th>
+                            <th scope="col" align="center">Nomor Polisi</th>
+                            <th scope="col" align="center">Jenis Truk</th>
+                            <th scope="col" align="center">Berat Truk</th>
+                            <th scope="col" width="200px" align="center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>

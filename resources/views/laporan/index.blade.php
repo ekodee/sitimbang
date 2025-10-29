@@ -83,7 +83,7 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+@push('scripts')
     <script>
         $(document).ready(function() {
             function updateExportLink() {
@@ -105,12 +105,14 @@
                     truk_id: trukId
                 });
 
-                $('#export-excel-link').attr('href', excelBaseUrl + '?' + queryParams);
-                $('#export-pdf-link').attr('href', pdfBaseUrl + '?' + queryParams);
+                // $('#export-excel-link').attr('href', excelBaseUrl + '?' + queryParams);
+                // $('#export-pdf-link').attr('href', pdfBaseUrl + '?' + queryParams);
+                $('#export-excel-link').attr('href', excelBaseUrl + (queryParams ? '?' + queryParams : ''));
+                $('#export-pdf-link').attr('href', pdfBaseUrl + (queryParams ? '?' + queryParams : ''));
             }
 
             updateExportLink();
             $('.filter-input').on('change', updateExportLink);
         });
     </script>
-@endsection
+@endpush

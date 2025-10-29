@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Truk;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class TrukController extends Controller
 {
@@ -37,13 +38,14 @@ class TrukController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'no_polisi' => 'required|string|max:20|unique:truks,no_polisi',
+            'no_polisi' => 'required|string|regex:/^[A-Z0-9]+$/|min:7|max:9|unique:truks,no_polisi',
             'jenis_truk' => 'required|string|max:50',
             'berat_truk' => 'required|numeric|gt:0|max:99999999',
         ], [
             'no_polisi.required'  => 'Nomor polisi wajib diisi.',
-            'no_polisi.unique'    => 'Nomor polisi ini sudah terdaftar.',
-            'no_polisi.max'       => 'Nomor polisi tidak boleh lebih dari 20 karakter.',
+            'no_polisi.regex'       => 'Nomor polisi hanya berisi kombinasi angka dan huruf',
+            'no_polisi.min'    => 'Nomor polisi minimal terdiri dari 7 karakter.',
+            'no_polisi.max' => 'Nomor polisi maksimal terdiri dari 9 karakter.',
             'jenis_truk.required' => 'Jenis truk harus dipilih.',
             'berat_truk.required' => 'Berat truk wajib diisi.',
             'berat_truk.numeric'  => 'Berat truk harus berupa angka.',
@@ -85,12 +87,21 @@ class TrukController extends Controller
     public function update(Request $request, Truk $truk)
     {
         $request->validate([
-            'no_polisi' => 'required|string|max:20',
-            'jenis_truk' => 'required|string|max:50',
+            'no_polisi' => [
+                'required',
+                'string',
+                'min:7',
+                'max:9',
+                'regex:/^[A-Z0-9]+$/',
+                Rule::unique('truks', 'no_polisi')->ignore($truk->truk_id, 'truk_id'),
+            ],
+            'jenis_truk' => 'required|string',
             'berat_truk' => 'required|numeric|gt:0|max:99999999',
         ], [
             'no_polisi.required'  => 'Nomor polisi wajib diisi.',
-            'no_polisi.max'       => 'Nomor polisi tidak boleh lebih dari 20 karakter.',
+            'no_polisi.regex' => 'Nomor polisi hanya boleh terdiri dari huruf dan angka',
+            'no_polisi.min'    => 'Nomor polisi minimal terdiri dari 7 karakter.',
+            'no_polisi.max' => 'Nomor polisi maksimal terdiri dari 9 karakter.',
             'jenis_truk.required' => 'Jenis truk harus dipilih.',
             'berat_truk.required' => 'Berat truk wajib diisi.',
             'berat_truk.numeric'  => 'Berat truk harus berupa angka.',
