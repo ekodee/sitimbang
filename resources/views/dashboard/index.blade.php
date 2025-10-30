@@ -29,7 +29,7 @@
                             <div class="col-sm-3 mb-3 mb-sm-0">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Total Timbangan</h5>
+                                        <h5 class="card-title">Freakuensi Penimbangan</h5>
                                         <p class="card-text">{{ $totalTimbangan }}</p>
                                     </div>
                                 </div>
@@ -37,7 +37,7 @@
                             <div class="col-sm-3 mb-3 mb-sm-0">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Total Volume Sampah</h5>
+                                        <h5 class="card-title">Total Berat Sampah (kg)</h5>
                                         <p class="card-text">{{ $totalBeratSampah }}</p>
                                     </div>
                                 </div>
@@ -53,9 +53,9 @@
                                 <th scope="col">Jam</th>
                                 <th scope="col">Plat Nomor</th>
                                 <th scope="col">Nama Petugas</th>
-                                <th scope="col">Berat Total</th>
-                                <th scope="col">Berat Truk</th>
-                                <th scope="col">Berat Sampah</th>
+                                <th scope="col">Berat Total (kg)</th>
+                                <th scope="col">Berat Truk (kg)</th>
+                                <th scope="col">Berat Sampah (kg)</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -6,43 +6,45 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h2 class="card-title">Master Data Truk</h2>
                 @can('truk-create')
-                    <a href="{{ route('truk.create') }}" class="btn btn-success" role="button">Tambah Data</a>
+                    <a href="{{ route('truk.create') }}" class="btn btn-success sm:btn-sm" role="button">Tambah Data</a>
                 @endcan
             </div>
             <div class="card-body">
-                <table class="table table-hover" id="table">
-                    <thead>
-                        <tr>
-                            <th scope="col" align="center">No</th>
-                            <th scope="col" align="center">Nomor Polisi</th>
-                            <th scope="col" align="center">Jenis Truk</th>
-                            <th scope="col" align="center">Berat Truk</th>
-                            <th scope="col" width="200px" align="center">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($truks as $index => $truk)
+                <div class="table-responsive">
+                    <table class="table table-hover" id="table">
+                        <thead>
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $truk->no_polisi }}</td>
-                                <td>{{ $truk->jenis_truk }}</td>
-                                <td>{{ $truk->berat_truk }}</td>
-                                <td>
-                                    @can('truk-edit')
-                                        <a href="{{ route('truk.edit', $truk->truk_id) }}" class="btn text-warning"><i
-                                                class="ti ti-edit"></i></a>
-                                    @endcan
-                                    @can('truk-delete')
-                                        <button type="button" class="btn text-danger" data-bs-toggle="modal"
-                                            data-bs-target="#confirmDeleteModal{{ $truk->truk_id }}">
-                                            <i class="ti ti-trash"></i>
-                                        </button>
-                                    @endcan
-                                </td>
+                                <th scope="col" align="center">No</th>
+                                <th scope="col" align="center">Nomor Polisi</th>
+                                <th scope="col" align="center">Jenis Truk</th>
+                                <th scope="col" align="center">Berat Truk</th>
+                                <th scope="col" width="200px" align="center">Aksi</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($truks as $index => $truk)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $truk->no_polisi }}</td>
+                                    <td>{{ $truk->jenis_truk }}</td>
+                                    <td>{{ $truk->berat_truk }}</td>
+                                    <td>
+                                        @can('truk-edit')
+                                            <a href="{{ route('truk.edit', $truk->truk_id) }}" class="btn text-warning"><i
+                                                    class="ti ti-edit"></i></a>
+                                        @endcan
+                                        @can('truk-delete')
+                                            <button type="button" class="btn text-danger" data-bs-toggle="modal"
+                                                data-bs-target="#confirmDeleteModal{{ $truk->truk_id }}">
+                                                <i class="ti ti-trash"></i>
+                                            </button>
+                                        @endcan
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

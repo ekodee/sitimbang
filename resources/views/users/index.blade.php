@@ -9,45 +9,47 @@
             @endcan
         </div>
         <div class="card-body">
-            <table class="table table-sm" id="table">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th width="200px">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($users as $user)
+            <div class="table-responsive">
+                <table class="table table-sm" id="table">
+                    <thead>
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->username }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>
-                                @foreach ($user->getRoleNames() as $role)
-                                    <span class="badge bg-success">{{ $role }}</span>
-                                @endforeach
-                            </td>
-                            <td>
-                                @can('role-edit')
-                                    <a href="{{ route('user.edit', $user->id) }}" class="btn text-warning"><i
-                                            class="ti ti-edit"></i></a>
-                                @endcan
-                                @can('role-delete')
-                                    <button type="button" class="btn text-danger" data-bs-toggle="modal"
-                                        data-bs-target="#confirmDeleteModal{{ $user->id }}">
-                                        <i class="ti ti-trash"></i>
-                                    </button>
-                                @endcan
-                            </td>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th width="200px">Aksi</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($users as $user)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->username }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>
+                                    @foreach ($user->getRoleNames() as $role)
+                                        <span class="badge bg-success">{{ $role }}</span>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @can('role-edit')
+                                        <a href="{{ route('user.edit', $user->id) }}" class="btn text-warning"><i
+                                                class="ti ti-edit"></i></a>
+                                    @endcan
+                                    @can('role-delete')
+                                        <button type="button" class="btn text-danger" data-bs-toggle="modal"
+                                            data-bs-target="#confirmDeleteModal{{ $user->id }}">
+                                            <i class="ti ti-trash"></i>
+                                        </button>
+                                    @endcan
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
