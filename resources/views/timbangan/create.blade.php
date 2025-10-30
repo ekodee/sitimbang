@@ -10,7 +10,7 @@
                 @csrf
                 <div class="row">
                     {{-- Kolom 1 --}}
-                    <div class="col-6">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="no_polisi">Plat Nomer Truk</label>
                             <select class="form-select myselect" id="no_polisiForm" name="no_polisi" required>
@@ -28,7 +28,7 @@
 
                         <div class="form-group">
                             <label for="nama_supir">Nama Supir</label>
-                            <select class="form-select" id="nama_supirForm" name="nama_supir">
+                            <select class="form-select myselect" id="nama_supirForm" name="nama_supir">
                                 <option value="">-- Pilih Plat Nomor Terlebih Dahulu --</option>
                             </select>
                             @error('nama_supir')
@@ -57,7 +57,7 @@
                     </div>
 
                     {{-- Kolom 2 --}}
-                    <div class="col-6">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="berat_total">Berat Total</label>
                             <input type="number" name="berat_total" id="berat_total"

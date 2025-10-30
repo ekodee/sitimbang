@@ -9,35 +9,37 @@
             @endcan
         </div>
         <div class="card-body">
-            <table class="table table-sm" id="table">
-                <thead>
-                    <tr>
-                        <th width="100px">No</th>
-                        <th>Nama Role</th>
-                        <th width="200px">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($roles as $role)
+            <div class="table-responsive">
+                <table class="table table-sm" id="table">
+                    <thead>
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $role->name }}</td>
-                            <td>
-                                @can('role-edit')
-                                    <a href="{{ route('role.edit', $role->id) }}" class="btn text-warning"><i
-                                            class="ti ti-edit"></i></a>
-                                @endcan
-                                @can('role-delete')
-                                    <button type="button" data-confirm-delete="true" class="btn text-danger"
-                                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $role->id }}">
-                                        <i class="ti ti-trash"></i>
-                                    </button>
-                                @endcan
-                            </td>
+                            <th width="100px">No</th>
+                            <th>Nama Role</th>
+                            <th width="200px">Aksi</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($roles as $role)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $role->name }}</td>
+                                <td>
+                                    @can('role-edit')
+                                        <a href="{{ route('role.edit', $role->id) }}" class="btn text-warning"><i
+                                                class="ti ti-edit"></i></a>
+                                    @endcan
+                                    @can('role-delete')
+                                        <button type="button" data-confirm-delete="true" class="btn text-danger"
+                                            data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $role->id }}">
+                                            <i class="ti ti-trash"></i>
+                                        </button>
+                                    @endcan
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

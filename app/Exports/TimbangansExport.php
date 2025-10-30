@@ -44,7 +44,6 @@ class TimbangansExport implements FromView, WithStyles, ShouldAutoSize
             $query->where('truk_id', $truk_id);
         }
 
-        // Ambil data yang SUDAH DIFILTER
         $this->timbangans = $query->latest()->get();
     }
 

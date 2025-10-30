@@ -27,7 +27,7 @@
     }
 
     .header-title {
-        font-size: 20px;
+        font-size: 25px;
         font-weight: bold;
     }
 
@@ -82,7 +82,8 @@
                 @endif
             </th>
         </tr>
-        <tr class="py-3">
+        <br>
+        <tr>
             <th width='20'>Tanggal</th>
             <th width='30'>Nama Supir</th>
             <th width='10'>No. Polisi</th>

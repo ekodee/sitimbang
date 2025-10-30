@@ -100,12 +100,12 @@
                             <label for="status">Ubah Status</label>
                             <select name="status" id="status" class="form-select @error('status') is-invalid @enderror">
                                 <option disabled>Pilih Status</option>
-                                <option value="pending"
+                                <option value="Pending"
                                     {{ old('status', $timbangan->status) == 'pending' ? 'selected' : '' }}>Pending</option>
-                                <option value="selesai"
+                                <option value="Selesai"
                                     {{ old('status', $timbangan->status) == 'verified' ? 'selesai' : '' }}>Selesai
                                 </option>
-                                <option value="dibatalkan"
+                                <option value="Dibatalkan"
                                     {{ old('status', $timbangan->status) == 'ditolak' ? 'dibatalkan' : '' }}>Dibatalkan
                                 </option>
                             </select>

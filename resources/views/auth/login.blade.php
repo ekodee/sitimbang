@@ -53,7 +53,8 @@
                         <form action="{{ route('login') }}" method="POST">
                             @csrf
                             <div class="text-center mb-4">
-                                <h3 class="mb-0"><b>Login</b></h3>
+                                <h2 class="fw-bold h2 ">SITIMBANG</h2>
+                                <span class="">Sistem Monitoring Sampah TPA</span>
                             </div>
                             <div class="form-group mb-3">
                                 <label class="form-label">Username</label>
@@ -72,7 +73,7 @@
                                     class="form-control @error('password')
                                     is-invalid
                                 @enderror"
-                                    placeholder="Password">
+                                    placeholder="Masukkan password">
                                 @error('password')
                                     {{ $message }}
                                 @enderror

@@ -65,7 +65,7 @@ class TimbanganController extends Controller
         Timbangan::create([
             "truk_id" => $request->no_polisi,
             "supir_id" => $request->nama_supir,
-            "status" => 'pending',
+            "status" => 'Pending',
             "berat_total" => $request->berat_total,
             "berat_truk" => $request->berat_truk,
             "berat_sampah" => $request->berat_sampah,
@@ -73,7 +73,7 @@ class TimbanganController extends Controller
         ]);
 
         toast('Data berhasil ditambahkan!', 'success');
-        return redirect()->route('timbangan.index');
+        return redirect()->back();
     }
 
     /**
@@ -107,7 +107,7 @@ class TimbanganController extends Controller
             'berat_truk'   => 'required|numeric|gt:0|max:99999999.99',
             'berat_sampah' => 'required|numeric|gt:0|max:99999999.99',
             'nama_petugas' => 'required|string|max:100',
-            'status'       => 'required|string|in:pending,selesai,dibatalkan',
+            'status'       => 'required|string|in:Pending,Selesai,Dibatalkan',
         ], [
             'no_polisi.required'   => 'Nomor polisi wajib diisi.',
             'no_polisi.exists'     => 'Truk yang dipilih tidak ditemukan.',
@@ -117,7 +117,7 @@ class TimbanganController extends Controller
             'berat_truk.max'       => 'Nilai berat truk terlalu besar (maksimal 99.999.999,99 kg).',
             'berat_sampah.max'     => 'Nilai berat sampah terlalu besar (maksimal 99.999.999,99 kg).',
             'nama_petugas.required' => 'Nama petugas wajib diisi.',
-            'status.in'            => 'Status hanya boleh: pending, selesai, atau dibatalkan.',
+            'status.in'            => 'Status hanya boleh: Pending, Selesai, atau Dibatalkan.',
         ]);
 
         $timbangan->update([

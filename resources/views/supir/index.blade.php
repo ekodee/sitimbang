@@ -10,42 +10,44 @@
                 @endcan
             </div>
             <div class="card-body">
-                <table class="table table-hover" id="table">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Nomor KTP</th>
-                            <th>Nomor HP</th>
-                            <th>Nomor Plat</th>
-                            <th width="200px">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($supirs as $index => $supir)
+                <div class="table-responsive">
+                    <table class="table table-hover" id="table">
+                        <thead>
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $supir->nama }}</td>
-                                <td>{{ $supir->no_ktp }}</td>
-                                <td>{{ $supir->no_hp }}</td>
-                                <td>{{ $supir->truks?->no_polisi ?? 'No polisi belum di set' }}
-                                </td>
-                                <td>
-                                    @can('supir-edit')
-                                        <a href="{{ route('supir.edit', $supir->supir_id) }}" class="btn text-warning"><i
-                                                class="ti ti-edit"></i></a>
-                                    @endcan
-                                    @can('supir-delete')
-                                        <button type="button" class="btn text-danger" data-bs-toggle="modal"
-                                            data-bs-target="#confirmDeleteModal{{ $supir->supir_id }}">
-                                            <i class="ti ti-trash"></i>
-                                        </button>
-                                    @endcan
-                                </td>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Nomor KTP</th>
+                                <th>Nomor HP</th>
+                                <th>Nomor Plat</th>
+                                <th width="200px">Aksi</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($supirs as $index => $supir)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $supir->nama }}</td>
+                                    <td>{{ $supir->no_ktp }}</td>
+                                    <td>{{ $supir->no_hp }}</td>
+                                    <td>{{ $supir->truks?->no_polisi ?? 'No polisi belum di set' }}
+                                    </td>
+                                    <td>
+                                        @can('supir-edit')
+                                            <a href="{{ route('supir.edit', $supir->supir_id) }}" class="btn text-warning"><i
+                                                    class="ti ti-edit"></i></a>
+                                        @endcan
+                                        @can('supir-delete')
+                                            <button type="button" class="btn text-danger" data-bs-toggle="modal"
+                                                data-bs-target="#confirmDeleteModal{{ $supir->supir_id }}">
+                                                <i class="ti ti-trash"></i>
+                                            </button>
+                                        @endcan
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
