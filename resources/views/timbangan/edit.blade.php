@@ -11,7 +11,7 @@
                 @method('PUT')
                 <div class="row">
                     {{-- Kolom 1 --}}
-                    <div class="col-6">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="no_polisi">Plat Nomer Truk</label>
                             <select class="form-select myselect" id="no_polisiForm" name="no_polisi" required>
@@ -66,7 +66,7 @@
                     </div>
 
                     {{-- Kolom 2 --}}
-                    <div class="col-6">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="berat_total">Berat Total</label>
                             <input type="number" name="berat_total" id="berat_total"
@@ -115,7 +115,7 @@
                         </div>
                         <div class="text-end pt-4">
                             <a href="{{ route('timbangan.index') }}" class="btn btn-secondary">Kembali</a>
-                            <button class="btn btn-primary" type="submit">Simpan</button>
+                            <button class="btn btn-success" type="submit">Simpan</button>
                         </div>
                     </div>
                 </div>

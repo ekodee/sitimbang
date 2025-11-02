@@ -50,7 +50,7 @@
 
                 <div class="text-end">
                     <a href="{{ route('truk.index') }}" class="btn btn-secondary">Kembali</a>
-                    <button class="btn btn-primary" type="submit">Simpan</button>
+                    <button class="btn btn-success" type="submit">Simpan</button>
                 </div>
             </form>
         </div>
