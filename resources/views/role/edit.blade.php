@@ -20,20 +20,6 @@
                         </span>
                     @enderror
                 </div>
-
-                {{-- <div class="form-group mb-3">
-                    <h5 class="fw-bold mb-3">Permissions</h5>
-
-                    <div class="form-check">
-                        @foreach ($permissions as $permission)
-                            <div class="form-check">
-                                <label><input type="checkbox" name="permissions[{{ $permission->name }}]"
-                                        value="{{ $permission->name }}">{{ $permission->name }}</label>
-                            </div>
-                        @endforeach
-                    </div>
-
-                </div> --}}
                 <div class="row">
                     @php
                         $groupedPermissions = collect($permissions)->groupBy(function ($perm) {
@@ -67,10 +53,9 @@
                         @endforeach
                     </div>
                 </div>
-
-
-                <div class="d-grid mt-3">
-                    <button type="submit" class="btn btn-primary">Buat Role</button>
+                <div class="text-end">
+                    <a href="{{ route('role.index') }}" class="btn btn-secondary">Kembali</a>
+                    <button type="submit" class="btn btn-success">Perbarui</button>
                 </div>
             </form>
         </div>

@@ -16,8 +16,8 @@
                             <div class="form-group mb-3">
                                 <label for="nama" class="form-label">Nama Lengkap</label>
                                 <input type="text" class="form-control @error('nama') is-invalid @enderror"
-                                    id="nama" name="nama" placeholder="John Doe" value="{{ old('nama') }}" required
-                                    autofocus>
+                                    id="nama" name="nama" placeholder="John Doe" value="{{ old('nama') }}"
+                                    required autofocus>
                                 @error('nama')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -29,6 +29,23 @@
                                     id="no_hp" name="no_hp" placeholder="0857XXXXXXXX" value="{{ old('no_hp') }}"
                                     required>
                                 @error('no_hp')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="kecamatan" class="form-label">Wilayah Kerja</label>
+                                <select class="form-select myselect @error('kecamatan') is-invalid @enderror" id="kecamatan"
+                                    name="kecamatan">
+                                    <option value="">Pilih Wilayah Kerja</option>
+                                    @foreach ($kecamatans as $kecamatan)
+                                        <option value="{{ $kecamatan['id'] }}"
+                                            {{ old('kecamatan') == $kecamatan['id'] ? 'selected' : '' }}>
+                                            {{ $kecamatan['nama'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('kecamatan')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -48,8 +65,8 @@
 
                             <div class="form-group mb-3">
                                 <label for="no_polisi" class="form-label">Nomor Polisi</label>
-                                <select class="form-select myselect @error('no_polisi') is-invalid @enderror"
-                                    id="no_polisi" name="no_polisi">
+                                <select class="form-select myselect @error('no_polisi') is-invalid @enderror" id="no_polisi"
+                                    name="no_polisi">
                                     <option value="">Pilih Nomor Polisi Truk</option>
                                     @foreach ($truks as $truk)
                                         <option value="{{ $truk->truk_id }}"

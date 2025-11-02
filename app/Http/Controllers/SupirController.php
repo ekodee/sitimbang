@@ -8,6 +8,22 @@ use Illuminate\Http\Request;
 
 class SupirController extends Controller
 {
+    protected $kecamatans = [
+        ['id' => 1, 'nama' => 'Batuceper'],
+        ['id' => 2, 'nama' => 'Benda'],
+        ['id' => 3, 'nama' => 'Cibodas'],
+        ['id' => 4, 'nama' => 'Ciledug'],
+        ['id' => 5, 'nama' => 'Cipondoh'],
+        ['id' => 6, 'nama' => 'Jatiuwung'],
+        ['id' => 7, 'nama' => 'Karangtengah'],
+        ['id' => 8, 'nama' => 'Karawaci'],
+        ['id' => 9, 'nama' => 'Larangan'],
+        ['id' => 10, 'nama' => 'Neglasari'],
+        ['id' => 11, 'nama' => 'Periuk'],
+        ['id' => 12, 'nama' => 'Pinang'],
+        ['id' => 13, 'nama' => 'Tangerang'],
+    ];
+
     public function __construct()
     {
         $this->middleware(['permission:supir-list|supir-create|supir-edit|supir-delete'], ['only' => ['index', 'show']]);
@@ -29,8 +45,9 @@ class SupirController extends Controller
      */
     public function create()
     {
+        $kecamatans = $this->kecamatans;
         $truks = Truk::get();
-        return view('supir.create', compact('truks'));
+        return view('supir.create', compact('truks', 'kecamatans'));
     }
 
     /**
@@ -39,7 +56,7 @@ class SupirController extends Controller
     public function store(Request $request)
     {
 
-        // dd($request->toArray());
+        dd($request->toArray());
         $request->validate([
             'nama'     => 'required|string|max:100',
             'no_hp'    => 'required|numeric|digits_between:10,15|unique:supirs,no_hp',

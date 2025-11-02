@@ -54,10 +54,10 @@ Route::get('test', function () {
     // $supirs = Supir::with('truks')->get();
     // $truks = Truk::with('supirs')->get();
 
-    $test = Supir::where('truk_id', 1)->get();
+    // $test = Supir::where('truk_id', 1)->get();
 
     // $beratSampah = DB::table('timbangans')->max('berat_sampah');
     // $timbangan = Timbangan::with('truks')->get();
     // $truks = DB::table('truks')->where('truk_id', 1)->with('supirs')->first();
-    dd($test->toArray());
+    // dd($test->toArray());
 });
