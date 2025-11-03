@@ -33,4 +33,9 @@ class Supir extends Model
     {
         return $this->hasMany(Timbangan::class, 'supir_id', 'supir_id');
     }
+
+    public function kecamatan(): BelongsTo
+    {
+        return $this->belongsTo(Kecamatan::class, 'kecamatan_id', 'kecamatan_id');
+    }
 }

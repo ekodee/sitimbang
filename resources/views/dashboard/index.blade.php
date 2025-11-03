@@ -37,7 +37,7 @@
                             <div class="col-sm-3 mb-3 mb-sm-0">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Total Berat Sampah   </h5>
+                                        <h5 class="card-title">Total Berat Sampah </h5>
                                         <p class="card-text">{{ $totalSupir }}</p>
                                     </div>
                                 </div>
@@ -88,6 +88,43 @@
                         </div>
                     </div>
 
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5>Distribusi Timbangan per Kecamatan</h5>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Kecamatan</th>
+                                        <th>Jumlah Timbangan</th>
+                                        <th>Total Berat Sampah (kg)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($beratPerKecamatan as $item)
+                                        <tr>
+                                            <td>{{ $item->nama_kecamatan }}</td>
+                                            <td>{{ $item->jumlah_timbangan }}</td>
+                                            <td>{{ number_format($item->total_berat, 2) }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5>Grafik Total Berat Sampah per Kecamatan</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="chartKecamatan" style="height: 450px;"></div>
+                        </div>
+                    </div>
+
+
+
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -123,3 +160,73 @@
         </div>
     </div>
 @endsection
+
+@push('importJs')
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+@endpush
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        Highcharts.chart('chartKecamatan', {
+            chart: {
+                type: 'column',
+                backgroundColor: '#f8f9fa'
+            },
+            title: {
+                text: 'Total Berat Sampah per Kecamatan'
+            },
+            subtitle: {
+                text: 'Klik batang untuk melihat tren per bulan'
+            },
+            accessibility: {
+                announceNewData: {
+                    enabled: true
+                }
+            },
+            xAxis: {
+                type: 'category',
+                title: {
+                    text: 'Kecamatan'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Total Berat Sampah (kg)'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y:.0f} kg'
+                    }
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:14px">{series.name}</span><br>',
+                pointFormat: '<b>{point.name}</b>: {point.y:.0f} kg'
+            },
+            series: [{
+                name: "Kecamatan",
+                colorByPoint: true,
+                data: @json($chartData)
+            }],
+            drilldown: {
+                breadcrumbs: {
+                    position: {
+                        align: 'right'
+                    }
+                },
+                series: @json($drilldownSeries)
+            },
+            credits: {
+                enabled: false
+            }
+        });
+    });
+</script>

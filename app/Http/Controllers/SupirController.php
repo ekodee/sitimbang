@@ -2,28 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kecamatan;
 use App\Models\Supir;
 use App\Models\Truk;
 use Illuminate\Http\Request;
 
 class SupirController extends Controller
 {
-    protected $kecamatans = [
-        ['id' => 1, 'nama' => 'Batuceper'],
-        ['id' => 2, 'nama' => 'Benda'],
-        ['id' => 3, 'nama' => 'Cibodas'],
-        ['id' => 4, 'nama' => 'Ciledug'],
-        ['id' => 5, 'nama' => 'Cipondoh'],
-        ['id' => 6, 'nama' => 'Jatiuwung'],
-        ['id' => 7, 'nama' => 'Karangtengah'],
-        ['id' => 8, 'nama' => 'Karawaci'],
-        ['id' => 9, 'nama' => 'Larangan'],
-        ['id' => 10, 'nama' => 'Neglasari'],
-        ['id' => 11, 'nama' => 'Periuk'],
-        ['id' => 12, 'nama' => 'Pinang'],
-        ['id' => 13, 'nama' => 'Tangerang'],
-    ];
-
     public function __construct()
     {
         $this->middleware(['permission:supir-list|supir-create|supir-edit|supir-delete'], ['only' => ['index', 'show']]);
@@ -36,7 +21,7 @@ class SupirController extends Controller
      */
     public function index()
     {
-        $supirs = Supir::with('truks')->latest()->get();
+        $supirs = Supir::with(['truks', 'kecamatan'])->latest()->get();
         return view('supir.index', compact('supirs'));
     }
 
@@ -45,7 +30,7 @@ class SupirController extends Controller
      */
     public function create()
     {
-        $kecamatans = $this->kecamatans;
+        $kecamatans = Kecamatan::get();
         $truks = Truk::get();
         return view('supir.create', compact('truks', 'kecamatans'));
     }
@@ -56,12 +41,12 @@ class SupirController extends Controller
     public function store(Request $request)
     {
 
-        dd($request->toArray());
         $request->validate([
             'nama'     => 'required|string|max:100',
             'no_hp'    => 'required|numeric|digits_between:10,15|unique:supirs,no_hp',
             'no_ktp'   => 'required|digits:16|unique:supirs,no_ktp',
-            'truk_id'  => 'nullable|exists:truks,truk_id',
+            'no_polisi'  => 'nullable|exists:truks,truk_id',
+        'kecamatan'  => 'nullable|exists:kecamatans,kecamatan_id',
         ], [
             'nama.required'   => 'Nama supir wajib diisi.',
             'no_hp.required'  => 'Nomor HP wajib diisi.',
@@ -71,7 +56,8 @@ class SupirController extends Controller
             'no_ktp.required' => 'Nomor KTP wajib diisi.',
             'no_ktp.digits'   => 'Nomor KTP harus 16 digit.',
             'no_ktp.unique'   => 'Nomor KTP sudah terdaftar.',
-            'truk_id.exists'  => 'Truk yang dipilih tidak valid.',
+            'no_polisi.exists'  => 'Truk yang dipilih tidak valid.',
+            'kecamatan.exists'  => 'Truk yang dipilih tidak valid.',
         ]);
 
         Supir::create([
@@ -79,6 +65,7 @@ class SupirController extends Controller
             'no_hp' => $request->no_hp,
             'no_ktp' => $request->no_ktp,
             'truk_id' => $request->no_polisi,
+            'kecamatan_id' => $request->kecamatan,
         ]);
         toast('Data berhasil ditambahkan!', 'success');
         return redirect()->route('supir.index');
@@ -99,7 +86,8 @@ class SupirController extends Controller
     {
         $supir = Supir::find($id);
         $truks = Truk::get();
-        return view('supir.edit', compact('supir', 'truks'));
+        $kecamatans = Truk::get();
+        return view('supir.edit', compact('supir', 'truks', 'kecamatans'));
     }
 
     /**
@@ -112,12 +100,14 @@ class SupirController extends Controller
             'no_hp'    => 'required|numeric|digits_between:10,15|unique:supirs,no_hp,' . $supir->supir_id . ',supir_id',
             'no_ktp'   => 'required|digits:16|unique:supirs,no_ktp,' . $supir->supir_id . ',supir_id',
             'truk_id'  => 'nullable|exists:truks,truk_id',
+            'kecamatan'  => 'nullable|exists:kecamatans,kecamatan_id',
         ]);
 
         $supir->update([
             'nama' => $request->nama,
             'no_hp' => $request->no_hp,
             'no_ktp' => $request->no_ktp,
+            'kecamatan_id' => $request->kecamatan,
         ]);
         toast('Data berhasil diperbarui!', 'success');
         return redirect()->route('supir.index');

@@ -39,9 +39,9 @@
                                     name="kecamatan">
                                     <option value="">Pilih Wilayah Kerja</option>
                                     @foreach ($kecamatans as $kecamatan)
-                                        <option value="{{ $kecamatan['id'] }}"
-                                            {{ old('kecamatan') == $kecamatan['id'] ? 'selected' : '' }}>
-                                            {{ $kecamatan['nama'] }}
+                                        <option value="{{ $kecamatan->kecamatan_id }}"
+                                            {{ old('kecamatan') == $kecamatan->kecamatan_id ? 'selected' : '' }}>
+                                            {{ $kecamatan->nama }}
                                         </option>
                                     @endforeach
                                 </select>
