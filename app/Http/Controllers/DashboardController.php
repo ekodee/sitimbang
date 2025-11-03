@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kecamatan;
 use App\Models\Supir;
 use App\Models\Timbangan;
 use App\Models\Truk;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -38,6 +40,52 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        $beratPerKecamatan = Timbangan::join('supirs', 'timbangans.supir_id', '=', 'supirs.supir_id')
+            ->join('kecamatans', 'supirs.kecamatan_id', '=', 'kecamatans.kecamatan_id')
+            ->selectRaw('kecamatans.nama as nama_kecamatan, SUM(timbangans.berat_sampah) as total_berat')
+            ->groupBy('kecamatans.nama')
+            ->get();
+
+        $chartData = $beratPerKecamatan->map(function ($item) {
+            return [
+                'name' => $item->nama_kecamatan,
+                'y' => (float) $item->total_berat,
+                'drilldown' => $item->nama_kecamatan,
+            ];
+        });
+
+        $drilldownSeries = [];
+
+        $bulanList = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+
+        foreach ($beratPerKecamatan as $item) {
+            // Ambil total berat sampah per bulan untuk kecamatan tertentu
+            $detailBulanan = Timbangan::join('supirs', 'timbangans.supir_id', '=', 'supirs.supir_id')
+                ->join('kecamatans', 'supirs.kecamatan_id', '=', 'kecamatans.kecamatan_id')
+                ->where('kecamatans.nama', $item->nama_kecamatan)
+                ->selectRaw('MONTH(timbangans.created_at) as bulan, SUM(timbangans.berat_sampah) as total_berat')
+                ->groupBy('bulan')
+                ->pluck('total_berat', 'bulan') // menghasilkan array [bulan => total_berat]
+                ->toArray();
+
+            $dataLengkap = [];
+            foreach ($bulanList as $index => $namaBulan) {
+                $nomorBulan = $index + 1;
+                $dataLengkap[] = [$namaBulan, (float) ($detailBulanan[$nomorBulan] ?? 0)];
+            }
+
+            // Masukkan ke dalam drilldown series
+            $drilldownSeries[] = [
+                'name' => $item->nama_kecamatan,
+                'id' => $item->nama_kecamatan,
+                'data' => $dataLengkap,
+            ];
+        }
+
+        // ====== KIRIM DATA KE VIEW ======
         return view('dashboard.index', compact(
             'totalTruk',
             'totalSupir',
@@ -51,7 +99,10 @@ class DashboardController extends Controller
             'totalBeratHariIni',
             'totalBeratKemarin',
             'persenJumlah',
-            'persenBerat'
+            'persenBerat',
+            'beratPerKecamatan',
+            'chartData',
+            'drilldownSeries'
         ));
     }
 }

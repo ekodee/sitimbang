@@ -2,120 +2,97 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
-use App\Models\Supir;
-use App\Models\Timbangan;
-use App\Models\Truk;
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Models\User;
+use App\Models\Kecamatan;
+use App\Models\Truk;
+use App\Models\Supir;
+use App\Models\Timbangan;
 use Spatie\Permission\Models\Role as SpatieRole;
 use Spatie\Permission\Models\Permission;
 
-
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        //     $this->call(PermissionSeeder::class);
+        // Seeder lain (izin, wilayah, dll)
+        $this->call([
+            PermissionSeeder::class,
+            KecamatanSeeder::class,
+        ]);
 
-        //     $roles = ['superadmin', 'admin', 'operator'];
-        //     foreach ($roles as $role) {
-        //         SpatieRole::firstOrCreate(['name' => $role]);
-        //     }
+        // --- Role & User ---
+        $roles = ['superadmin', 'admin', 'operator'];
+        foreach ($roles as $role) {
+            SpatieRole::firstOrCreate(['name' => $role]);
+        }
 
-        //     $superadmin = User::create([
-        //         'name' => 'Super Admin',
-        //         'username' => 'superadmin',
-        //         'nik' => '123123123',
-        //         'jabatan' => 'Admin Sistem',
-        //         'email' => 'superadmin@teamdlh.com',
-        //         'email_verified_at' => now(),
-        //         'password' => Hash::make('Bersih@123'),
-        //         'remember_token' => Str::random(10),
-        //     ]);
+        $superadmin = User::firstOrCreate(
+            ['email' => 'superadmin@teamdlh.com'],
+            [
+                'name' => 'Super Admin',
+                'username' => 'superadmin',
+                'nik' => '1231231231231231',
+                'jabatan' => 'Admin Sistem',
+                'email_verified_at' => now(),
+                'password' => Hash::make('Bersih@123'),
+                'remember_token' => Str::random(10),
+            ]
+        );
+        $superadmin->assignRole('superadmin');
+        $superadmin->givePermissionTo(Permission::all());
 
-        //     $superadmin->assignRole('superadmin');
-        //     $superadmin->givePermissionTo(Permission::all());
+        $admin = User::firstOrCreate(
+            ['email' => 'admin@teamdlh.com'],
+            [
+                'name' => 'Admin DLH',
+                'username' => 'admin',
+                'nik' => '3213213213213213',
+                'jabatan' => 'Admin Lapangan',
+                'email_verified_at' => now(),
+                'password' => Hash::make('Bersih@123'),
+                'remember_token' => Str::random(10),
+            ]
+        );
+        $admin->assignRole('admin');
 
-        //     $admin = User::create([
-        //         'name' => 'Admin DLH',
-        //         'username' => 'admin',
-        //         'nik' => '321321321',
-        //         'jabatan' => 'Admin Lapangan',
-        //         'email' => 'admin@teamdlh.com',
-        //         'email_verified_at' => now(),
-        //         'password' => Hash::make('password'),
-        //         'remember_token' => Str::random(10),
-        //     ]);
-        //     $admin->assignRole('admin');
+        $operator = User::firstOrCreate(
+            ['email' => 'operator@teamdlh.com'],
+            [
+                'name' => 'Operator Timbangan',
+                'username' => 'operator',
+                'nik' => '2312312312312312',
+                'jabatan' => 'Petugas Timbangan',
+                'email_verified_at' => now(),
+                'password' => Hash::make('Bersih@123'),
+                'remember_token' => Str::random(10),
+            ]
+        );
+        $operator->assignRole('operator');
 
-        //     $operator = User::create([
-        //         'name' => 'Operator Timbangan',
-        //         'username' => 'operator',
-        //         'nik' => '987987987',
-        //         'jabatan' => 'Petugas Timbangan',
-        //         'email' => 'operator@teamdlh.com',
-        //         'email_verified_at' => now(),
-        //         'password' => Hash::make('password'),
-        //         'remember_token' => Str::random(10),
-        //     ]);
-        //     $operator->assignRole('operator');
+        // --- Data Dummy Otomatis ---
+        $kecamatan = Kecamatan::all();
 
-        //     $truk1 = Truk::create([
-        //         'no_polisi' => 'B 1234 ABC',
-        //         'jenis_truk' => 'Dump Truck',
-        //         'berat_truk' => 8000,
-        //     ]);
+        // Buat 20 truk
+        $truks = Truk::factory(20)->create();
 
-        //     $truk2 = Truk::create([
-        //         'no_polisi' => 'B 5678 XYZ',
-        //         'jenis_truk' => 'Compactor',
-        //         'berat_truk' => 9000,
-        //     ]);
+        // Buat 100 supir yang otomatis terhubung ke truk & kecamatan
+        $supirs = Supir::factory(100)->make()->each(function ($supir) use ($truks, $kecamatan) {
+            $supir->truk_id = $truks->random()->truk_id;
+            $supir->kecamatan_id = $kecamatan->random()->kecamatan_id;
+            $supir->save();
+        });
 
-        //     $supir1 = Supir::create([
-        //         'truk_id' => $truk1->truk_id,
-        //         'nama' => 'Ahmad S',
-        //         'no_ktp' => '3171023001110001',
-        //         'no_hp' => '081234567890',
-        //     ]);
+        // Buat 300 data timbangan acak
+        Timbangan::factory(300)->make()->each(function ($timbangan) use ($truks, $supirs) {
+            $supir = $supirs->random();
+            $truk = $truks->where('truk_id', $supir->truk_id)->first() ?? $truks->random();
 
-        //     $supir2 = Supir::create([
-        //         'truk_id' => $truk2->truk_id,
-        //         'nama' => 'Budi P',
-        //         'no_ktp' => '3171023002220002',
-        //         'no_hp' => '081298765432',
-        //     ]);
-
-        //     Timbangan::create([
-        //         'truk_id' => $truk1->truk_id,
-        //         'supir_id' => $supir1->supir_id,
-        //         'status' => 'Selesai',
-        //         'berat_total' => 12500,
-        //         'berat_truk' => 8000,
-        //         'berat_sampah' => 4500,
-        //         'nama_petugas' => 'Petugas A',
-        //     ]);
-
-        //     Timbangan::create([
-        //         'truk_id' => $truk2->truk_id,
-        //         'supir_id' => $supir2->supir_id,
-        //         'status' => 'Selesai',
-        //         'berat_total' => 14500,
-        //         'berat_truk' => 9000,
-        //         'berat_sampah' => 5500,
-        //         'nama_petugas' => 'Petugas B',
-        //     ]);
-        // }
-
-
-        Truk::factory(20)->create();
-        Supir::factory(100)->create();
+            $timbangan->truk_id = $truk->truk_id;
+            $timbangan->supir_id = $supir->supir_id;
+            $timbangan->save();
+        });
     }
 }

@@ -16,7 +16,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>
-                                <th>Nomor KTP</th>
+                                <th>Wilayah Kerja</th>
                                 <th>Nomor HP</th>
                                 <th>Nomor Plat</th>
                                 <th width="200px">Aksi</th>
@@ -27,7 +27,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $supir->nama }}</td>
-                                    <td>{{ $supir->no_ktp }}</td>
+                                    <td>{{ $supir->kecamatan?->nama }}</td>
                                     <td>{{ $supir->no_hp }}</td>
                                     <td>{{ $supir->truks?->no_polisi ?? 'No polisi belum di set' }}
                                     </td>

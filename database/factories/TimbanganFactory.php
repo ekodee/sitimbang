@@ -4,26 +4,20 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Timbangan>
- */
 class TimbanganFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
+        $beratTruk = fake()->numberBetween(6000, 9000);
+        $beratSampah = fake()->numberBetween(1000, 6000);
+
         return [
-            'plat_nomer' => fake()->regexify('[A-Z]{1,2} [0-9]{4} [A-Z]{2,3}'),
-            'nama_supir' => fake()->name(),
-            'berat_total' => fake()->numberBetween(1000, 8000),
-            'berat_truk' => fake()->numberBetween(1000, 8000),
-            'berat_sampah' => fake()->numberBetween(1000, 8000),
+            'status' => fake()->randomElement(['Selesai', 'Proses', 'Menunggu']),
+            'berat_total' => $beratTruk + $beratSampah,
+            'berat_truk' => $beratTruk,
+            'berat_sampah' => $beratSampah,
             'nama_petugas' => fake()->name(),
-            'created_at' => fake()->dateTime('now', 'GMT'),
+            'created_at' => fake()->dateTimeThisYear(),
         ];
     }
 }

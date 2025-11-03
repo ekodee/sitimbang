@@ -48,6 +48,8 @@
 
     @vite(['resources/js/app.js'])
 
+    @stack('importJs')
+
     <style>
         .pc-container {
             position: relative;
