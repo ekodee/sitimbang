@@ -18,8 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 use function Pest\Laravel\get;
 
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
+
 Route::get('/', function () {
-    return view('auth.login');
+    return redirect()->route('login');
 });
 
 Auth::routes();
