@@ -58,13 +58,16 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label class="form-label">Username</label>
-                                <input type="text" name="username"
+                                <input type="text" name="username" autocomplete="username"
+                                    value="{{ old('username') }}"
                                     class="form-control @error('username')
                                     is-invalid
                                 @enderror"
-                                    placeholder="Masukkan username">
+                                    placeholder="Masukkan username" required>
                                 @error('username')
-                                    {{ $message }}
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
                                 @enderror
                             </div>
                             <div class="form-group mb-3">
@@ -73,9 +76,11 @@
                                     class="form-control @error('password')
                                     is-invalid
                                 @enderror"
-                                    placeholder="Masukkan password">
+                                    placeholder="Masukkan password" required>
                                 @error('password')
-                                    {{ $message }}
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
                                 @enderror
                             </div>
                             <div class="d-grid mt-4">
