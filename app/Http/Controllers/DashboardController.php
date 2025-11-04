@@ -68,7 +68,7 @@ class DashboardController extends Controller
                 ->where('kecamatans.nama', $item->nama_kecamatan)
                 ->selectRaw('MONTH(timbangans.created_at) as bulan, SUM(timbangans.berat_sampah) as total_berat')
                 ->groupBy('bulan')
-                ->pluck('total_berat', 'bulan') // menghasilkan array [bulan => total_berat]
+                ->pluck('total_berat', 'bulan')
                 ->toArray();
 
             $dataLengkap = [];
