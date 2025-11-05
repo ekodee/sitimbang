@@ -46,6 +46,7 @@ class DashboardController extends Controller
             ->groupBy('kecamatans.nama')
             ->get();
 
+
         $chartData = $beratPerKecamatan->map(function ($item) {
             return [
                 'name' => $item->nama_kecamatan,
@@ -57,8 +58,18 @@ class DashboardController extends Controller
         $drilldownSeries = [];
 
         $bulanList = [
-            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+            'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
         ];
 
         foreach ($beratPerKecamatan as $item) {
@@ -85,7 +96,6 @@ class DashboardController extends Controller
             ];
         }
 
-        // ====== KIRIM DATA KE VIEW ======
         return view('dashboard.index', compact(
             'totalTruk',
             'totalSupir',

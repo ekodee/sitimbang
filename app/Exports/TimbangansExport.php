@@ -58,17 +58,21 @@ class TimbangansExport implements FromView, WithStyles, ShouldAutoSize
 
     public function styles(Worksheet $sheet)
     {
+        // Merge dan posisi teks di tengah
         $sheet->mergeCells('A1:H1');
         $sheet->mergeCells('A2:H2');
         $sheet->mergeCells('A3:H3');
         $sheet->getStyle('A1:H3')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A1:H3')->getFont()->setBold(true);
 
+        // Font bold dan ukuran font lebih besar untuk header utama
+        $sheet->getStyle('A1:H3')->getFont()->setBold(true)->setSize(14);
+
+        // Header kolom (baris ke-4)
         $sheet->getStyle('A4:H4')->applyFromArray([
             'fill' => [
                 'fillType' => Fill::FILL_SOLID,
                 'startColor' => [
-                    'argb' => 'FFFFFF00',
+                    'argb' => 'FFFFFF00', // kuning terang
                 ],
             ],
             'font' => [
@@ -76,22 +80,25 @@ class TimbangansExport implements FromView, WithStyles, ShouldAutoSize
             ],
             'alignment' => [
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
-            ]
+            ],
         ]);
 
+        // Tentukan batas terakhir data
         $lastRow = count($this->timbangans) + 4;
 
+        // Range keseluruhan
         $cellRange = 'A1:H' . $lastRow;
 
-        return [
-            $cellRange => [
-                'borders' => [
-                    'allBorders' => [
-                        'borderStyle' => Border::BORDER_THIN,
-                        'color' => ['argb' => '000000'],
-                    ],
+        // Terapkan border ke semua kecuali A1:H3
+        $sheet->getStyle('A4:H' . $lastRow)->applyFromArray([
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => '000000'],
                 ],
             ],
-        ];
+        ]);
+
+        return [];
     }
 }
