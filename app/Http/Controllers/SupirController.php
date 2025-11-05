@@ -46,7 +46,7 @@ class SupirController extends Controller
             'no_hp'    => 'required|numeric|digits_between:10,15|unique:supirs,no_hp',
             'no_ktp'   => 'required|digits:16|unique:supirs,no_ktp',
             'no_polisi'  => 'nullable|exists:truks,truk_id',
-        'kecamatan'  => 'nullable|exists:kecamatans,kecamatan_id',
+            'kecamatan'  => 'nullable|exists:kecamatans,kecamatan_id',
         ], [
             'nama.required'   => 'Nama supir wajib diisi.',
             'no_hp.required'  => 'Nomor HP wajib diisi.',
@@ -86,7 +86,7 @@ class SupirController extends Controller
     {
         $supir = Supir::find($id);
         $truks = Truk::get();
-        $kecamatans = Truk::get();
+        $kecamatans = Kecamatan::get();
         return view('supir.edit', compact('supir', 'truks', 'kecamatans'));
     }
 
@@ -99,7 +99,7 @@ class SupirController extends Controller
             'nama'     => 'required|string|max:100',
             'no_hp'    => 'required|numeric|digits_between:10,15|unique:supirs,no_hp,' . $supir->supir_id . ',supir_id',
             'no_ktp'   => 'required|digits:16|unique:supirs,no_ktp,' . $supir->supir_id . ',supir_id',
-            'truk_id'  => 'nullable|exists:truks,truk_id',
+            'no_polisi'  => 'nullable|exists:truks,truk_id',
             'kecamatan'  => 'nullable|exists:kecamatans,kecamatan_id',
         ]);
 
@@ -107,6 +107,7 @@ class SupirController extends Controller
             'nama' => $request->nama,
             'no_hp' => $request->no_hp,
             'no_ktp' => $request->no_ktp,
+            'truk_id' => $request->no_polisi,
             'kecamatan_id' => $request->kecamatan,
         ]);
         toast('Data berhasil diperbarui!', 'success');

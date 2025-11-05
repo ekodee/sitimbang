@@ -35,6 +35,8 @@ class DashboardController extends Controller
             ? round((($totalBeratHariIni - $totalBeratKemarin) / $totalBeratKemarin) * 100, 2)
             : 0;
 
+        // dd($persenBerat);
+
         $timbanganTerbaru = Timbangan::with(['truks', 'supirs'])
             ->latest()
             ->take(5)
