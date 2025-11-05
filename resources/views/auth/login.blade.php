@@ -72,19 +72,24 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label class="form-label">Password</label>
-                                <input type="password" name="password"
-                                    class="form-control @error('password')
-                                    is-invalid
-                                @enderror"
-                                    placeholder="Masukkan password" required>
-                                @error('password')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <div class="input-group">
+                                    <input type="password" id="password" name="password"
+                                        class="form-control @error('password') is-invalid @enderror"
+                                        placeholder="Masukkan password" required>
+
+                                    <span class="input-group-text" id="togglePassword" style="cursor:pointer;">
+                                        <i class="ti ti-eye-off" id="toggleIcon"></i>
+                                    </span>
+
+                                    @error('password')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
                             <div class="d-grid mt-4">
-                                <button type="submit" class="btn btn-primary">Login</button>
+                                <button type="submit" class="btn btn-success">Login</button>
                             </div>
                         </form>
                     </div>
@@ -93,6 +98,22 @@
         </div>
     </div>
     <!-- [ Main Content ] end -->
+
+    <script>
+        const togglePassword = document.querySelector("#togglePassword");
+        const password = document.querySelector("#password");
+        const toggleIcon = document.querySelector("#toggleIcon");
+
+        togglePassword.addEventListener("click", function() {
+            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
+
+            // Ganti icon
+            toggleIcon.classList.toggle("ti-eye");
+            toggleIcon.classList.toggle("ti-eye-off");
+        });
+    </script>
+
     <!-- Required Js -->
     <script src="{{ asset('template/dist') }}/assets/js/plugins/popper.min.js"></script>
     <script src="{{ asset('template/dist') }}/assets/js/plugins/simplebar.min.js"></script>

@@ -9,6 +9,7 @@
                         <h2>Dashboard</h2>
                     </div>
                     <div class="card-body">
+                        {{-- Baris 1 : informasi data master --}}
                         <div class="row">
                             <div class="col-sm-3 mb-3 mb-sm-0">
                                 <div class="card">
@@ -29,8 +30,8 @@
                             <div class="col-sm-3 mb-3 mb-sm-0">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Total Frekuensi Timbangan</h5>
-                                        <p class="card-text">{{ $totalSupir }}</p>
+                                        <h5 class="card-title">Frekuensi Timbangan</h5>
+                                        <p class="card-text">{{ $totalTimbangan }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -38,57 +39,70 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Total Berat Sampah </h5>
-                                        <p class="card-text">{{ $totalSupir }}</p>
+                                        <p class="card-text">{{ $totalBeratSampah }}</p>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                        <div class="row">
-                            <h3>Timbangan Hari Ini</h3>
-                            {{-- Frekuensi Timbangan Hari Ini --}}
-                            <div class="col-sm-3 mb-3 mb-sm-0">
-                                <div class="card">
+                        <div class="row mt-4">
+                            <h3>Analisis Timbangan Hari Ini dan Kemarin</h3>
+
+                            {{-- Analisis Jumlah Timbangan --}}
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="card border-primary">
                                     <div class="card-body">
-                                        <h5 class="card-title">Frekuensi Timbangan</h5>
-                                        <p class="card-text">{{ $timbanganHariIni->count() }}</p>
+                                        <h5 class="card-title text-primary">Analisis Jumlah Timbangan</h5>
+                                        <p class="card-text mb-1">
+                                            Hari ini: <strong>{{ $totalHariIni }}</strong> kali
+                                        </p>
+                                        <p class="card-text mb-1">
+                                            Kemarin: <strong>{{ $totalKemarin }}</strong> kali
+                                        </p>
+                                        <p class="card-text">
+                                            Perubahan:
+                                            @if ($persenJumlah > 0)
+                                                <span class="text-success">+{{ $persenJumlah }}%</span> 📈 (meningkat)
+                                            @elseif($persenJumlah < 0)
+                                                <span class="text-danger">{{ $persenJumlah }}%</span> 📉 (menurun)
+                                            @else
+                                                <span class="text-muted">Tidak ada perubahan</span>
+                                            @endif
+                                        </p>
                                     </div>
                                 </div>
                             </div>
 
-                            {{-- Total Berat Sampah Hari Ini --}}
-                            <div class="col-sm-3 mb-3 mb-sm-0">
-                                <div class="card">
+                            {{-- Analisis Total Berat Sampah --}}
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="card border-success">
                                     <div class="card-body">
-                                        <h5 class="card-title">Berat Sampah</h5>
-                                        <p class="card-text">{{ $timbanganHariIni->sum('berat_sampah') }}</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {{-- Rata-rata Berat Sampah Hari Ini --}}
-                            <div class="col-sm-3 mb-3 mb-sm-0">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Rata-rata Sampah</h5>
-                                        <p class="card-text">{{ $timbanganHariIni->average('berat_sampah') }}</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {{-- Persen Berat Sampah Hari Ini --}}
-                            <div class="col-sm-3 mb-3 mb-sm-0">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Persentasi Hari ini dan kemarin</h5>
-                                        <p class="card-text">{{ $persenBerat }}</p>
+                                        <h5 class="card-title text-success">Analisis Total Berat Sampah</h5>
+                                        <p class="card-text mb-1">
+                                            Hari ini: <strong>{{ number_format($totalBeratHariIni, 2, ',', '.') }}</strong>
+                                            kg
+                                        </p>
+                                        <p class="card-text mb-1">
+                                            Kemarin: <strong>{{ number_format($totalBeratKemarin, 2, ',', '.') }}</strong>
+                                            kg
+                                        </p>
+                                        <p class="card-text">
+                                            Perubahan:
+                                            @if ($persenBerat > 0)
+                                                <span class="text-success">+{{ $persenBerat }}%</span> 📈 (meningkat)
+                                            @elseif($persenBerat < 0)
+                                                <span class="text-danger">{{ $persenBerat }}%</span> 📉 (menurun)
+                                            @else
+                                                <span class="text-muted">Tidak ada perubahan</span>
+                                            @endif
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="card mt-4">
+                    {{-- <div class="card mt-4">
                         <div class="card-header">
                             <h5>Distribusi Timbangan per Kecamatan</h5>
                         </div>
@@ -112,7 +126,8 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div> --}}
+
 
                     <div class="card mt-4">
                         <div class="card-header">
@@ -122,8 +137,6 @@
                             <div id="chartKecamatan" style="height: 450px;"></div>
                         </div>
                     </div>
-
-
 
                     <div class="table-responsive">
                         <table class="table">
@@ -177,7 +190,7 @@
                 text: 'Total Berat Sampah per Kecamatan'
             },
             subtitle: {
-                text: 'Klik batang untuk melihat tren per bulan'
+                text: 'Klik grafik untuk melihat tren per bulan'
             },
             accessibility: {
                 announceNewData: {
