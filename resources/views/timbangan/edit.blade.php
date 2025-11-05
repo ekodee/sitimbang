@@ -54,15 +54,6 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-
-                        <div class="form-group">
-                            <label for="nama_petugas">Nama Petugas</label>
-                            <input type="text" name="nama_petugas" id="nama_petugas" class="form-control"
-                                value="{{ old('nama_petugas', Auth::user()->name) }}">
-                            @error('nama_petugas')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
                     </div>
 
                     {{-- Kolom 2 --}}
@@ -96,7 +87,16 @@
                             @enderror
                         </div>
 
-                        <div class="form-group mb-3">
+                        <div class="form-group">
+                            <label for="nama_petugas">Nama Petugas</label>
+                            <input type="text" name="nama_petugas" id="nama_petugas" class="form-control"
+                                value="{{ old('nama_petugas', Auth::user()->name) }}">
+                            @error('nama_petugas')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        {{-- <div class="form-group mb-3">
                             <label for="status">Ubah Status</label>
                             <select name="status" id="status" class="form-select @error('status') is-invalid @enderror">
                                 <option disabled>Pilih Status</option>
@@ -112,11 +112,11 @@
                             @error('status')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
-                        </div>
-                        <div class="text-end pt-4">
-                            <a href="{{ route('timbangan.index') }}" class="btn btn-secondary">Kembali</a>
-                            <button class="btn btn-success" type="submit">Simpan</button>
-                        </div>
+                        </div> --}}
+                    </div>
+                    <div class="text-end pt-4">
+                        <a href="{{ route('timbangan.index') }}" class="btn btn-secondary">Kembali</a>
+                        <button class="btn btn-success" type="submit">Simpan</button>
                     </div>
                 </div>
 

@@ -39,7 +39,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Total Berat Sampah </h5>
-                                        <p class="card-text">{{ $totalBeratSampah }}</p>
+                                        <p class="card-text">{{ number_format($totalBeratSampah, 2, ',', '.') }} Kg</p>
                                     </div>
                                 </div>
                             </div>
@@ -62,9 +62,9 @@
                                         <p class="card-text">
                                             Perubahan:
                                             @if ($persenJumlah > 0)
-                                                <span class="text-success">+{{ $persenJumlah }}%</span> 📈 (meningkat)
+                                                <span class="text-danger">+{{ $persenJumlah }}%</span> (meningkat)
                                             @elseif($persenJumlah < 0)
-                                                <span class="text-danger">{{ $persenJumlah }}%</span> 📉 (menurun)
+                                                <span class="text-success">{{ $persenJumlah }}%</span> (menurun)
                                             @else
                                                 <span class="text-muted">Tidak ada perubahan</span>
                                             @endif
@@ -89,9 +89,9 @@
                                         <p class="card-text">
                                             Perubahan:
                                             @if ($persenBerat > 0)
-                                                <span class="text-success">+{{ $persenBerat }}%</span> 📈 (meningkat)
+                                                <span class="text-danger">+{{ $persenBerat }}%</span> (meningkat)
                                             @elseif($persenBerat < 0)
-                                                <span class="text-danger">{{ $persenBerat }}%</span> 📉 (menurun)
+                                                <span class="text-success">{{ $persenBerat }}%</span> (menurun)
                                             @else
                                                 <span class="text-muted">Tidak ada perubahan</span>
                                             @endif

@@ -2,7 +2,7 @@
 @section('content')
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h2>Data Volume Sampah</h2>
+            <h2>Data Berat Sampah</h2>
             @can('timbangan-create')
                 <a href="{{ route('timbangan.create') }}" class="btn btn-success" type="button">Tambah Data</a>
             @endcan
@@ -96,13 +96,13 @@
                     </div>
                     <div class="modal-body">
                         <table class="table ">
-                            <tr>
+                            {{-- <tr>
                                 <th scope="row" width="150px">Status</th>
                                 <td
                                     class="{{ ($timbangan->status == 'Pending' ? 'text-warning' : $timbangan->status == 'Ditolak') ? 'text-danger' : 'text-success' }}">
                                     :
                                     {{ $timbangan->status }}</td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <th scope="row">Tanggal</th>
                                 <td>: {{ $timbangan->created_at->format('d M Y') }}</td>

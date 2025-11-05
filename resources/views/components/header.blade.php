@@ -69,4 +69,25 @@
             </li>
         </ul>
     </div>
+
+    {{-- Tentang --}}
+    {{-- <div class="">
+        <ul class="list-unstyled">
+            <li class="dropdown pc-h-item header-user-profile">
+                <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#"
+                    role="button" aria-haspopup="false" data-bs-auto-close="outside" aria-expanded="false">
+                    <span>Tentang</span>
+                </a>
+                <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+                    <div class="dropdown-header text-wrap">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo, laborum voluptate eos
+                            eveniet consequuntur, qui, tenetur fugit quasi odit officia animi vel velit temporibus
+                            nostrum. Est nisi labore harum, repudiandae odio perferendis saepe aperiam pariatur unde
+                            iure, ipsam ratione non facere sint dolorem? Quam dignissimos harum quas odio impedit
+                            cupiditate.
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div> --}}
 </div>
