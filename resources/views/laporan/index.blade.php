@@ -5,18 +5,8 @@
         <div class="card-header">
             <h2>Laporan</h2>
             <form action="{{ route('laporan.filter') }}" method="GET">
-                <div class="row pb-3 align-items-end">
-                    {{-- <div class="col-md-2">
-                        <label for="">Tanggal mulai : </label>
-                        <input type="date" class="form-control filter-input" id="start_date" name="start_date"
-                            value="{{ $start_date ?? '' }}">
-                    </div>
-                    <div class="col-md-2">
-                        <label for="">Tanggal akhir : </label>
-                        <input type="date" class="form-control filter-input" id="end_date" name="end_date"
-                            value="{{ $end_date ?? '' }}">
-                    </div> --}}
 
+                <div class="row pb-3 d-flex align-items-end justify-content-between">
                     <div class="col-md-4">
                         <label for="daterange_display">Rentang Tanggal:</label>
                         <input type="text" id="daterange_display" class="form-control" value="" autocomplete="off"
@@ -38,7 +28,8 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-5 d-flex gap-2">
+
+                    <div class="col-md-5 d-flex justify-content-end gap-2">
                         <button type="submit" class="btn btn-primary">Filter</button>
 
                         <a href="{{ route('laporan.index') }}" class="btn btn-secondary">Reset</a>
@@ -69,8 +60,8 @@
                             <th>Nama Supir</th>
                             <th>Plat Nomor</th>
                             <th>Jenis Truk</th>
-                            <th>Berat Truk (Kg)</th>
                             <th>Berat Total (Kg)</th>
+                            <th>Berat Truk (Kg)</th>
                             <th>Berat Sampah (Kg)</th>
                             <th>Petugas</th>
                         </tr>
@@ -83,9 +74,9 @@
                                 <td>{{ $timbangan->supirs?->nama }}</td>
                                 <td>{{ $timbangan->truks->no_polisi }}</td>
                                 <td>{{ $timbangan->truks->jenis_truk }}</td>
-                                <td>{{ $timbangan->truks->berat_truk }}</td>
-                                <td>{{ $timbangan->berat_total }}</td>
-                                <td>{{ $timbangan->berat_sampah }}</td>
+                                <td>{{ number_format($timbangan->berat_total, 2, ',', '.') }}</td>
+                                <td>{{ number_format($timbangan->truks->berat_truk, 2, ',', '.') }}</td>
+                                <td>{{ number_format($timbangan->berat_sampah, 2, ',', '.') }}</td>
                                 <td>{{ $timbangan->nama_petugas }}</td>
                             </tr>
                         @endforeach

@@ -17,7 +17,7 @@
                                 <th scope="col" align="center">No</th>
                                 <th scope="col" align="center">Nomor Polisi</th>
                                 <th scope="col" align="center">Jenis Truk</th>
-                                <th scope="col" align="center">Berat Truk</th>
+                                <th scope="col" align="center">Berat Truk (Kg)</th>
                                 <th scope="col" width="200px" align="center">Aksi</th>
                             </tr>
                         </thead>
@@ -27,7 +27,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $truk->no_polisi }}</td>
                                     <td>{{ $truk->jenis_truk }}</td>
-                                    <td>{{ $truk->berat_truk }}</td>
+                                    <td>{{ number_format($truk->berat_truk, 2, ',', '.') }}</td>
                                     <td>
                                         @can('truk-edit')
                                             <a href="{{ route('truk.edit', $truk->truk_id) }}" class="btn text-warning"><i

@@ -19,7 +19,7 @@ class TimbanganFactory extends Factory
             'berat_truk' => $beratTruk,
             'berat_sampah' => $beratSampah,
             'nama_petugas' => fake()->name(),
-            'created_at' => fake()->randomElement(['2025-11-5 12:59:08', '2025-11-4 12:59:08']),
+            'created_at' => fake()->randomElement(['2025-11-5 12:59:08', '2025-11-6 12:59:08']),
         ];
     }
 }

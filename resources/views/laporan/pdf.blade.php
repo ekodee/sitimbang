@@ -88,8 +88,8 @@
             <th width='30'>Nama Supir</th>
             <th width='10'>No. Polisi</th>
             <th width='10'>Jenis Truk</th>
-            <th width='15'>Berat Truk (Kg)</th>
             <th width='15'>Berat Total (Kg)</th>
+            <th width='15'>Berat Truk (Kg)</th>
             <th width='20'>Berat Sampah (Kg)</th>
             <th width='20'>Petugas</th>
         </tr>
@@ -101,9 +101,9 @@
                 <td>{{ $timbangan->supirs?->nama }}</td>
                 <td>{{ $timbangan->truks->no_polisi }}</td>
                 <td>{{ $timbangan->truks->jenis_truk }}</td>
-                <td>{{ $timbangan->truks->berat_truk }}</td>
-                <td>{{ $timbangan->berat_total }}</td>
-                <td>{{ $timbangan->berat_sampah }}</td>
+                <td>{{ number_format($timbangan->berat_total, 2, ',', '.') }}</td>
+                <td>{{ number_format($timbangan->truks->berat_truk, 2, ',', '.') }}</td>
+                <td>{{ number_format($timbangan->berat_sampah, 2, ',', '.') }}</td>
                 <td>{{ $timbangan->nama_petugas }}</td>
             </tr>
         @endforeach
