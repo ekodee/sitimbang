@@ -59,7 +59,7 @@
                     {{-- Kolom 2 --}}
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="berat_total">Berat Total</label>
+                            <label for="berat_total">Berat Total (Kg)</label>
                             <input type="number" name="berat_total" id="berat_total"
                                 class="form-control @error('berat_total') is-invalid @enderror"
                                 value="{{ old('berat_total', $timbangan->berat_total) }}">
@@ -69,7 +69,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="berat_truk">Berat Truk</label>
+                            <label for="berat_truk">Berat Truk (Kg)</label>
                             <input type="number" name="berat_truk" id="berat_trukForm"
                                 class="form-control @error('berat_truk') is-invalid @enderror"
                                 value="{{ old('berat_truk', $timbangan->berat_truk) }}">
@@ -79,7 +79,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="berat_sampah">Berat Sampah</label>
+                            <label for="berat_sampah">Berat Sampah (Kg)</label>
                             <input type="number" name="berat_sampah" id="berat_sampah" class="form-control"
                                 value="{{ old('berat_sampah', $timbangan->berat_sampah) }}" readonly>
                             @error('berat_sampah')
@@ -96,6 +96,7 @@
                             @enderror
                         </div>
 
+                        {{-- Form Edit Status --}}
                         {{-- <div class="form-group mb-3">
                             <label for="status">Ubah Status</label>
                             <select name="status" id="status" class="form-select @error('status') is-invalid @enderror">

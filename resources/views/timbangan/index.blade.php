@@ -121,15 +121,15 @@
                             </tr>
                             <tr>
                                 <th scope="row">Berat Total</th>
-                                <td>: {{ $timbangan->berat_total }}</td>
+                                <td>: {{ number_format($timbangan->berat_total, 2, ',', '.') }} Kg</td>
                             </tr>
                             <tr>
                                 <th scope="row">Berat Truk</th>
-                                <td>: {{ $timbangan->berat_truk }}</td>
+                                <td>: {{ number_format($timbangan->berat_truk, 2, ',', '.') }} Kg</td>
                             </tr>
                             <tr>
                                 <th scope="row">Berat Sampah</th>
-                                <td>: {{ $timbangan->berat_sampah }}</td>
+                                <td>: {{ number_format($timbangan->berat_sampah, 2, ',', '.') }} Kg</td>
                             </tr>
                             <tr>
                                 <th scope="row">Petugas</th>

@@ -79,6 +79,23 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+
+                            <div class="form-group mb-3">
+                                <label for="wilayah_upt" class="form-label">Nomor Polisi</label>
+                                <select class="form-select myselect @error('wilayah_upt') is-invalid @enderror"
+                                    id="wilayah_upt" name="wilayah_upt">
+                                    <option value="">Pilih Wilayah UPT</option>
+                                    <option value="Barat" {{ old('wilayah_upt') == 'Barat' ? 'selected' : '' }}>
+                                        Barat
+                                    </option>
+                                    <option value="Timur" {{ old('wilayah_upt') == 'Timur' ? 'selected' : '' }}>
+                                        Timur
+                                    </option>
+                                </select>
+                                @error('wilayah_upt')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
                         </div>
                     </div>
 

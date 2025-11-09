@@ -25,9 +25,14 @@
                             <select name="jenis_truk" id="jenis_truk"
                                 class="form-select @error('jenis_truk') is-invalid @enderror">
                                 <option disabled selected>Pilih Jenis Truk</option>
-                                <option value="Heavy" {{ old('jenis_truk') == 'Heavy' ? 'selected' : '' }}>Heavy</option>
-                                <option value="Medium" {{ old('jenis_truk') == 'Medium' ? 'selected' : '' }}>Medium</option>
-                                <option value="Light" {{ old('jenis_truk') == 'Light' ? 'selected' : '' }}>Light</option>
+                                <option value="Dump Truck" {{ old('jenis_truk') == 'Dump Truck' ? 'selected' : '' }}>Dump
+                                    Truck</option>
+                                <option value="Compactor" {{ old('jenis_truk') == 'Compactor' ? 'selected' : '' }}>Compactor
+                                </option>
+                                <option value="Arm Roll" {{ old('jenis_truk') == 'Arm Roll' ? 'selected' : '' }}>Arm Roll
+                                </option>
+                                <option value="Bak Terbuka" {{ old('jenis_truk') == 'Bak Terbuka' ? 'selected' : '' }}>Bak
+                                    Terbuka</option>
                             </select>
                             @error('jenis_truk')
                                 <small class="text-danger">{{ $message }}</small>

@@ -102,6 +102,10 @@
             font-weight: 600;
             letter-spacing: 0.5px;
         }
+
+        input.form-control {
+            height: 39px;
+        }
     </style>
 </head>
 <!-- [Head] end -->

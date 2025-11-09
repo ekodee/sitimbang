@@ -102,33 +102,6 @@
                         </div>
                     </div>
 
-                    {{-- <div class="card mt-4">
-                        <div class="card-header">
-                            <h5>Distribusi Timbangan per Kecamatan</h5>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Kecamatan</th>
-                                        <th>Jumlah Timbangan</th>
-                                        <th>Total Berat Sampah (kg)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($beratPerKecamatan as $item)
-                                        <tr>
-                                            <td>{{ $item->nama_kecamatan }}</td>
-                                            <td>{{ $item->jumlah_timbangan }}</td>
-                                            <td>{{ number_format($item->total_berat, 2) }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> --}}
-
-
                     <div class="card mt-4">
                         <div class="card-header">
                             <h5>Grafik Total Berat Sampah per Kecamatan</h5>
@@ -177,10 +150,20 @@
 @push('importJs')
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
 @endpush
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+        function numberWithDots(x) {
+            var parts = x.toString().split(".");
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            return parts.join(",");
+        }
+
+
         Highcharts.chart('chartKecamatan', {
             chart: {
                 type: 'column',
@@ -216,13 +199,17 @@
                     borderWidth: 0,
                     dataLabels: {
                         enabled: true,
-                        format: '{point.y:.0f} kg'
+                        formatter: function() {
+                            return numberWithDots(this.y.toFixed(0)) + ' kg';
+                        }
                     }
                 }
             },
             tooltip: {
-                headerFormat: '<span style="font-size:14px">{series.name}</span><br>',
-                pointFormat: '<b>{point.name}</b>: {point.y:.0f} kg'
+                formatter: function() {
+                    return '<b>' + this.point.name + '</b>: ' + numberWithDots(this.y.toFixed(0)) +
+                        ' kg';
+                }
             },
             series: [{
                 name: "Kecamatan",
@@ -239,6 +226,13 @@
             },
             credits: {
                 enabled: false
+            },
+            exporting: {
+                buttons: {
+                    contextButton: {
+                        menuItems: ['downloadPNG', 'downloadJPEG'],
+                    },
+                },
             }
         });
     });

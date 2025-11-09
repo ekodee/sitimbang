@@ -38,18 +38,19 @@
 
                         <div class="form-group">
                             <label for="jam_masuk">Jam Masuk</label>
-                            <input type="datetime" class="form-control" name="jam_masuk" id="jam_masuk"
-                                value="{{ old('jam_masuk', now('Asia/Jakarta')->format('H:i')) }}" readonly>
+                            <input type="time" class="form-control" name="jam_masuk" id="jam_masuk"
+                                value="{{ old('jam_masuk', now('Asia/Jakarta')->format('H:i')) }}"
+                                {{ Auth::user()->getRoleNames()[0] != 'superadmin' ? 'readonly' : '' }}>
                             @error('jam_masuk')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
-
                         <div class="form-group">
                             <label for="tanggal">Tanggal</label>
-                            <input type="text" class="form-control" name="tanggal" id="tanggal"
-                                value="{{ old('tanggal', now('Asia/Jakarta')->format('Y-m-d')) }}" readonly>
+                            <input type="date" class="form-control" name="tanggal" id="tanggal"
+                                value="{{ old('tanggal', now('Asia/Jakarta')->format('Y-m-d')) }}"
+                                {{ Auth::user()->getRoleNames()[0] != 'superadmin' ? 'readonly' : '' }}>
                             @error('tanggal')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -59,7 +60,7 @@
                     {{-- Kolom 2 --}}
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="berat_total">Berat Total</label>
+                            <label for="berat_total">Berat Total (Kg)</label>
                             <input type="number" name="berat_total" id="berat_total"
                                 class="form-control @error('berat_total')
                                 is-invalid
@@ -71,7 +72,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="berat_truk">Berat Truk</label>
+                            <label for="berat_truk">Berat Truk (Kg)</label>
                             <input type="number" name="berat_truk" id="berat_trukForm"
                                 class="form-control @error('berat_truk') is-invalid @enderror"
                                 value="{{ old('berat_truk') }}">
@@ -81,7 +82,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="berat_sampah">Berat Sampah</label>
+                            <label for="berat_sampah">Berat Sampah (Kg)</label>
                             <input type="number" name="berat_sampah" id="berat_sampah" class="form-control"
                                 value="{{ old('berat_sampah') }}" readonly>
                             @error('berat_sampah')
