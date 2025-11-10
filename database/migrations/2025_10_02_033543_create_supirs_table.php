@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('supir_id');
             $table->unsignedBigInteger('truk_id')->nullable();
             $table->unsignedBigInteger('kecamatan_id')->nullable();
+            $table->enum('upt', ['Barat', 'Timur'])->nullable();
             $table->string('nama', 100);
             $table->string('no_ktp', 20);
             $table->string('no_hp', 20);

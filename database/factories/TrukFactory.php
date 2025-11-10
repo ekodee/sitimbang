@@ -11,8 +11,7 @@ class TrukFactory extends Factory
         return [
             'no_polisi' => strtoupper(fake()->regexify('[A-Z]{1,2}[0-9]{4}[A-Z]{2,3}')),
             'jenis_truk' => fake()->randomElement(['Dump Truck', 'Compactor', 'Arm Roll', 'Bak Terbuka']),
-            'berat_truk' => fake()->numberBetween(5000, 10000),
-            'created_at' => now(),
+            'berat_truk' => fake()->numberBetween(6000, 9000),
         ];
     }
 }

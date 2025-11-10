@@ -10,7 +10,6 @@ use App\Models\Kecamatan;
 use App\Models\Truk;
 use App\Models\Supir;
 use App\Models\Timbangan;
-use Spatie\Permission\Models\Role as SpatieRole;
 use Spatie\Permission\Models\Permission;
 
 class DatabaseSeeder extends Seeder
@@ -20,57 +19,10 @@ class DatabaseSeeder extends Seeder
         // Seeder lain (izin, wilayah, dll)
         $this->call([
             PermissionSeeder::class,
+            RoleSeeder::class,
             KecamatanSeeder::class,
+            UserSeeder::class,
         ]);
-
-        // --- Role & User ---
-        $roles = ['superadmin', 'admin', 'operator'];
-        foreach ($roles as $role) {
-            SpatieRole::firstOrCreate(['name' => $role]);
-        }
-
-        $superadmin = User::firstOrCreate(
-            ['email' => 'superadmin@teamdlh.com'],
-            [
-                'name' => 'Super Admin',
-                'username' => 'superadmin',
-                'nik' => '1231231231231231',
-                'jabatan' => 'Admin Sistem',
-                'email_verified_at' => now(),
-                'password' => Hash::make('Bersih@123'),
-                'remember_token' => Str::random(10),
-            ]
-        );
-        $superadmin->assignRole('superadmin');
-        $superadmin->givePermissionTo(Permission::all());
-
-        $admin = User::firstOrCreate(
-            ['email' => 'admin@teamdlh.com'],
-            [
-                'name' => 'Admin DLH',
-                'username' => 'admin',
-                'nik' => '3213213213213213',
-                'jabatan' => 'Admin Lapangan',
-                'email_verified_at' => now(),
-                'password' => Hash::make('Bersih@123'),
-                'remember_token' => Str::random(10),
-            ]
-        );
-        $admin->assignRole('admin');
-
-        $operator = User::firstOrCreate(
-            ['email' => 'operator@teamdlh.com'],
-            [
-                'name' => 'Operator Timbangan',
-                'username' => 'operator',
-                'nik' => '2312312312312312',
-                'jabatan' => 'Petugas Timbangan',
-                'email_verified_at' => now(),
-                'password' => Hash::make('Bersih@123'),
-                'remember_token' => Str::random(10),
-            ]
-        );
-        $operator->assignRole('operator');
 
         // --- Data Dummy Otomatis ---
         $kecamatan = Kecamatan::all();
@@ -89,9 +41,10 @@ class DatabaseSeeder extends Seeder
         Timbangan::factory(300)->make()->each(function ($timbangan) use ($truks, $supirs) {
             $supir = $supirs->random();
             $truk = $truks->where('truk_id', $supir->truk_id)->first() ?? $truks->random();
-
             $timbangan->truk_id = $truk->truk_id;
             $timbangan->supir_id = $supir->supir_id;
+            $timbangan->berat_truk = $truk->berat_truk;
+            $timbangan->berat_total = $truk->berat_truk + $timbangan->berat_sampah;
             $timbangan->save();
         });
     }

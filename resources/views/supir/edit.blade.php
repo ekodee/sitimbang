@@ -81,6 +81,21 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+
+                            <div class="form-group mb-3">
+                                <label for="upt" class="form-label">UPT</label>
+                                <select class="form-select @error('upt') is-invalid @enderror" id="upt" name="upt"
+                                    required>
+                                    <option value="">Pilih UPT</option>
+                                    <option value="Barat" {{ old('upt', $supir->upt) == 'Barat' ? 'selected' : '' }}>Barat
+                                    </option>
+                                    <option value="Timur" {{ old('upt', $supir->upt) == 'Timur' ? 'selected' : '' }}>Timur
+                                    </option>
+                                </select>
+                                @error('upt')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
                         </div>
                     </div>
 

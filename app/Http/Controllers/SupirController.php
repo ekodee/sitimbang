@@ -40,13 +40,14 @@ class SupirController extends Controller
      */
     public function store(Request $request)
     {
-
+        // dd($request->toArray());
         $request->validate([
             'nama'     => 'required|string|max:100',
             'no_hp'    => 'required|numeric|digits_between:10,15|unique:supirs,no_hp',
             'no_ktp'   => 'required|digits:16|unique:supirs,no_ktp',
             'no_polisi'  => 'nullable|exists:truks,truk_id',
-            'kecamatan'  => 'nullable|exists:kecamatans,kecamatan_id',
+            'kecamatan'  => 'required|exists:kecamatans,kecamatan_id',
+            'upt'        => 'nullable|in:Barat,Timur',
         ], [
             'nama.required'   => 'Nama supir wajib diisi.',
             'no_hp.required'  => 'Nomor HP wajib diisi.',
@@ -57,7 +58,9 @@ class SupirController extends Controller
             'no_ktp.digits'   => 'Nomor KTP harus 16 digit.',
             'no_ktp.unique'   => 'Nomor KTP sudah terdaftar.',
             'no_polisi.exists'  => 'Truk yang dipilih tidak valid.',
-            'kecamatan.exists'  => 'Truk yang dipilih tidak valid.',
+            'kecamatan.required'  => 'Wilayah kerja wajib diisi.',
+            'kecamatan.exists'  => 'Kecamatan yang dipilih tidak valid.',
+            'upt.in'          => 'UPT hanya boleh Barat atau Timur.',
         ]);
 
         Supir::create([
@@ -66,6 +69,7 @@ class SupirController extends Controller
             'no_ktp' => $request->no_ktp,
             'truk_id' => $request->no_polisi,
             'kecamatan_id' => $request->kecamatan,
+            'upt'          => $request->upt,
         ]);
         toast('Data berhasil ditambahkan!', 'success');
         return redirect()->route('supir.index');
@@ -96,11 +100,25 @@ class SupirController extends Controller
     public function update(Request $request, Supir $supir)
     {
         $request->validate([
-            'nama'     => 'required|string|max:100',
-            'no_hp'    => 'required|numeric|digits_between:10,15|unique:supirs,no_hp,' . $supir->supir_id . ',supir_id',
-            'no_ktp'   => 'required|digits:16|unique:supirs,no_ktp,' . $supir->supir_id . ',supir_id',
-            'no_polisi'  => 'nullable|exists:truks,truk_id',
-            'kecamatan'  => 'nullable|exists:kecamatans,kecamatan_id',
+            'nama'        => 'required|string|max:100',
+            'no_hp'       => 'required|numeric|digits_between:10,15|unique:supirs,no_hp,' . $supir->supir_id . ',supir_id',
+            'no_ktp'      => 'required|digits:16|unique:supirs,no_ktp,' . $supir->supir_id . ',supir_id',
+            'no_polisi'   => 'nullable|exists:truks,truk_id',
+            'kecamatan'   => 'required|exists:kecamatans,kecamatan_id',
+            'upt'         => 'nullable|in:Barat,Timur',
+        ], [
+            'nama.required'   => 'Nama supir wajib diisi.',
+            'no_hp.required'  => 'Nomor HP wajib diisi.',
+            'no_hp.numeric'   => 'Nomor HP hanya boleh berisi angka.',
+            'no_hp.digits_between' => 'Nomor HP harus terdiri dari 10–15 digit.',
+            'no_hp.unique'    => 'Nomor HP sudah terdaftar.',
+            'no_ktp.required' => 'Nomor KTP wajib diisi.',
+            'no_ktp.digits'   => 'Nomor KTP harus 16 digit.',
+            'no_ktp.unique'   => 'Nomor KTP sudah terdaftar.',
+            'no_polisi.exists'  => 'Truk yang dipilih tidak valid.',
+            'kecamatan.required'  => 'Wilayah kerja wajib diisi.',
+            'kecamatan.exists'  => 'Kecamatan yang dipilih tidak valid.',
+            'upt.in'          => 'UPT hanya boleh Barat atau Timur.',
         ]);
 
         $supir->update([
@@ -109,6 +127,7 @@ class SupirController extends Controller
             'no_ktp' => $request->no_ktp,
             'truk_id' => $request->no_polisi,
             'kecamatan_id' => $request->kecamatan,
+            'upt'          => $request->upt,
         ]);
         toast('Data berhasil diperbarui!', 'success');
         return redirect()->route('supir.index');
