@@ -31,7 +31,13 @@
                                     <td>{{ $supir->no_hp }}</td>
                                     <td>{{ $supir->truks?->no_polisi ?? 'No polisi belum di set' }}
                                     </td>
-                                    <td>
+                                    <td class="text-nowrap">
+                                        @can('supir-list')
+                                            <button type="button" class="btn text-primary" data-bs-toggle="modal"
+                                                data-bs-target="#showDetailModal{{ $supir->supir_id }}">
+                                                <i class="ti ti-eye"></i>
+                                            </button>
+                                        @endcan
                                         @can('supir-edit')
                                             <a href="{{ route('supir.edit', $supir->supir_id) }}" class="btn text-warning"><i
                                                     class="ti ti-edit"></i></a>
@@ -54,6 +60,7 @@
 
 
     @foreach ($supirs as $supir)
+        {{-- Modal Konfirmasi Hapus --}}
         <div class="modal fade" id="confirmDeleteModal{{ $supir->supir_id }}" tabindex="-1"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -72,6 +79,50 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Hapus</button>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Modal Detail Supir --}}
+        <div class="modal fade" id="showDetailModal{{ $supir->supir_id }}" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-7" id="exampleModalLabel">Detail Supir</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table ">
+                            <tr>
+                                <th scope="row">Nama</th>
+                                <td>: {{ $supir->nama }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Plat Nomer Truk</th>
+                                <td>: {{ $supir->truks?->no_polisi }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Wilayah Kerja</th>
+                                <td>: {{ $supir->kecamatan?->nama }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">UPT</th>
+                                <td>: {{ $supir->upt }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">No KTP</th>
+                                <td>: {{ $supir->no_ktp }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">No HP</th>
+                                <td>{{ $supir->no_hp }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

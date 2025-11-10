@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('timbangans', function (Blueprint $table) {
             $table->id('timbangan_id');
             $table->unsignedBigInteger('truk_id');
-            $table->unsignedBigInteger('supir_id')->nullable();
+            $table->unsignedBigInteger('supir_id');
             $table->string('status');
             $table->decimal('berat_total', 10, 2);
             $table->decimal('berat_truk', 10, 2);
             $table->decimal('berat_sampah', 10, 2);
             $table->string('nama_petugas');
+            $table->dateTime('waktu_masuk');
             $table->timestamps();
 
             $table->foreign('truk_id')->references('truk_id')->on('truks')->onDelete('restrict');

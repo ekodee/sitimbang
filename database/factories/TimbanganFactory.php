@@ -2,24 +2,26 @@
 
 namespace Database\Factories;
 
+use App\Models\Supir;
+use App\Models\Truk;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TimbanganFactory extends Factory
 {
     public function definition(): array
     {
-        $beratTruk = fake()->numberBetween(6000, 9000);
+        // $beratTruk = fake()->numberBetween(6000, 9000);
         $beratSampah = fake()->numberBetween(1000, 6000);
 
         return [
-            'truk_id' => fake()->numberBetween(1, 20),
-            'supir_id' => fake()->numberBetween(1, 100),
+            // 'truk_id' => Truk::inRandomOrder()->value('truk_id'),
+            // 'supir_id' => Supir::inRandomOrder()->value('supir_id'),
             'status' => fake()->randomElement(['Selesai', 'Proses', 'Menunggu']),
-            'berat_total' => $beratTruk + $beratSampah,
-            'berat_truk' => $beratTruk,
+            // 'berat_total' => $beratTruk + $beratSampah,
+            // 'berat_truk' => $beratTruk,
             'berat_sampah' => $beratSampah,
             'nama_petugas' => fake()->name(),
-            'created_at' => fake()->randomElement(['2025-11-5 12:59:08', '2025-11-6 12:59:08']),
+            'waktu_masuk' => fake()->dateTimeBetween('2024-01-01', '2025-12-31', 'Asia/Jakarta'),
         ];
     }
 }
