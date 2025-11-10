@@ -9,6 +9,29 @@
                         <h2>Dashboard</h2>
                     </div>
                     <div class="card-body">
+
+                        {{-- FORM FILTER TAHUN --}}
+                        <form action="{{ route('dashboard.index') }}" method="GET" id="filterForm" class="mb-3">
+                            <div class="row align-items-end">
+                                <div class="col-md-3">
+                                    <label for="yearFilter" class="form-label"><b>Filter Data per Tahun</b></label>
+                                    <select name="year" id="yearFilter" class="form-control">
+                                        <option value="">Semua Tahun</option>
+                                        @foreach ($availableYears as $year)
+                                            <option value="{{ $year }}"
+                                                {{ $year == $selectedYear ? 'selected' : '' }}>
+                                                {{ $year }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="{{ route('dashboard.index') }}" class="btn btn-secondary">Reset Filter</a>
+                                </div>
+                            </div>
+                        </form>
+                        <hr>
+
                         {{-- Baris 1 : informasi data master --}}
                         <div class="row">
                             <div class="col-sm-3 mb-3 mb-sm-0">
@@ -32,19 +55,24 @@
                                     <div class="card-body">
                                         <h5 class="card-title">Frekuensi Timbangan</h5>
                                         <p class="card-text">{{ $totalTimbangan }}</p>
+                                        <small
+                                            class="text-muted">{{ $selectedYear ? "Tahun $selectedYear" : 'Semua data' }}</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-3 mb-3 mb-sm-0">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Total Berat Sampah </h5>
+                                        <h5 class="card-title">Total Berat Sampah</h5>
                                         <p class="card-text">{{ number_format($totalBeratSampah, 2, ',', '.') }} Kg</p>
+                                        <small
+                                            class="text-muted">{{ $selectedYear ? "Tahun $selectedYear" : 'Semua data' }}</small>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
+
+                        {{-- Analisis Harian --}}
                         <div class="row mt-4">
                             <h3>Analisis Timbangan Hari Ini dan Kemarin</h3>
 
@@ -100,46 +128,51 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="card mt-4">
-                        <div class="card-header">
-                            <h5>Grafik Total Berat Sampah per Kecamatan</h5>
+                        {{-- Grafik --}}
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h5>Grafik Total Berat Sampah per Kecamatan</h5>
+                                <small class="text-muted">
+                                    {{ $selectedYear ? "Data tahun $selectedYear" : 'Semua data historis' }}
+                                </small>
+                            </div>
+                            <div class="card-body">
+                                <div id="chartKecamatan" style="height: 450px;"></div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div id="chartKecamatan" style="height: 450px;"></div>
-                        </div>
-                    </div>
 
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No</th>
-                                    <th scope="col">Tanggal</th>
-                                    <th scope="col">Jam</th>
-                                    <th scope="col">Plat Nomor</th>
-                                    <th scope="col">Nama Petugas</th>
-                                    <th scope="col">Berat Total (kg)</th>
-                                    <th scope="col">Berat Truk (kg)</th>
-                                    <th scope="col">Berat Sampah (kg)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($timbanganTerbaru as $timbangan)
+                        {{-- Tabel Timbangan Terbaru --}}
+                        <div class="table-responsive mt-4">
+                            <table class="table">
+                                <thead>
                                     <tr>
-                                        <th scope="row">{{ $loop->iteration }}</th>
-                                        <td sty>{{ $timbangan->created_at->format('d M Y') }}</td>
-                                        <td>{{ $timbangan->created_at->format('H:i') }}</td>
-                                        <td>{{ $timbangan->truks->no_polisi }}</td>
-                                        <td>{{ $timbangan->nama_petugas }}</td>
-                                        <td>{{ number_format($timbangan->berat_total, 2, ',', '.') }}</td>
-                                        <td>{{ number_format($timbangan->berat_truk, 2, ',', '.') }}</td>
-                                        <td>{{ number_format($timbangan->berat_sampah, 2, ',', '.') }}</td>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Tanggal</th>
+                                        <th scope="col">Jam</th>
+                                        <th scope="col">Plat Nomor</th>
+                                        <th scope="col">Nama Petugas</th>
+                                        <th scope="col">Berat Total (kg)</th>
+                                        <th scope="col">Berat Truk (kg)</th>
+                                        <th scope="col">Berat Sampah (kg)</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($timbanganTerbaru as $timbangan)
+                                        <tr>
+                                            <th scope="row">{{ $loop->iteration }}</th>
+                                            <td>{{ $timbangan->waktu_masuk->format('d M Y') }}</td>
+                                            <td>{{ $timbangan->waktu_masuk->format('H:i') }}</td>
+                                            <td>{{ $timbangan->truks->no_polisi ?? '-' }}</td>
+                                            <td>{{ $timbangan->nama_petugas }}</td>
+                                            <td>{{ number_format($timbangan->berat_total, 2, ',', '.') }}</td>
+                                            <td>{{ number_format($timbangan->berat_truk, 2, ',', '.') }}</td>
+                                            <td>{{ number_format($timbangan->berat_sampah, 2, ',', '.') }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -162,7 +195,6 @@
             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             return parts.join(",");
         }
-
 
         Highcharts.chart('chartKecamatan', {
             chart: {
@@ -237,3 +269,14 @@
         });
     });
 </script>
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            // Auto-submit form ketika dropdown tahun berubah
+            $('#yearFilter').on('change', function() {
+                $('#filterForm').submit();
+            });
+        });
+    </script>
+@endpush

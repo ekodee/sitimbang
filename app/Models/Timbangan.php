@@ -13,6 +13,10 @@ class Timbangan extends Model
 
     protected $guarded = ['timbangan_id'];
 
+    protected $casts = [
+        'waktu_masuk' => 'datetime',
+    ];
+
     public function supirs(): BelongsTo
     {
         return $this->belongsTo(Supir::class, 'supir_id', 'supir_id');
