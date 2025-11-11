@@ -27,8 +27,8 @@
                         @foreach ($timbangans as $index => $timbangan)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td sty>{{ $timbangan->created_at->format('d M Y') }}</td>
-                                <td>{{ $timbangan->created_at->format('H:i') }}</td>
+                                <td sty>{{ $timbangan->waktu_masuk->format('d M Y') }}</td>
+                                <td>{{ $timbangan->waktu_masuk->format('H:i') }}</td>
                                 <td>{{ $timbangan->truks->no_polisi }}</td>
                                 <td>{{ $timbangan->nama_petugas }}</td>
                                 <td>{{ number_format($timbangan->berat_total, 2, ',', '.') }}</td>
@@ -105,11 +105,11 @@
                             </tr> --}}
                             <tr>
                                 <th scope="row">Tanggal</th>
-                                <td>: {{ $timbangan->created_at->format('d M Y') }}</td>
+                                <td>: {{ $timbangan->waktu_masuk->format('d M Y') }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Jam</th>
-                                <td>: {{ $timbangan->created_at->format('H:i:s') }}</td>
+                                <td>: {{ $timbangan->waktu_masuk->format('H:i:s') }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Plat Nomor</th>

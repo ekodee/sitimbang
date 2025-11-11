@@ -42,7 +42,7 @@ class TimbanganController extends Controller
     {
         $request->validate([
             'no_polisi'    => 'required|integer|exists:truks,truk_id',
-            'nama_supir'   => 'nullable|integer|exists:supirs,supir_id',
+            'nama_supir'   => 'required|integer|exists:supirs,supir_id',
             'berat_total'  => 'required|numeric|gt:0|max:99999999.99',
             'berat_truk'   => 'required|numeric|gt:0|max:99999999.99',
             'berat_sampah' => 'required|numeric|gt:0|max:99999999.99',
@@ -50,6 +50,7 @@ class TimbanganController extends Controller
         ], [
             'no_polisi.required'   => 'Nomor polisi wajib diisi.',
             'no_polisi.exists'     => 'Truk yang dipilih tidak ditemukan.',
+            'nama_supir.required'   => 'Supir wajib diisi.',
             'nama_supir.exists'    => 'Supir yang dipilih tidak valid.',
             'berat_total.required' => 'Berat total wajib diisi.',
             'berat_total.max'      => 'Nilai berat total terlalu besar (maksimal 99.999.999,99 kg).',
@@ -62,6 +63,20 @@ class TimbanganController extends Controller
             'nama_petugas.required' => 'Nama petugas wajib diisi.',
         ]);
 
+        $waktuMasuk = now('Asia/Jakarta');
+
+        if ($request->user()->can('timbangan-input-manual')) {
+            $request->validate([
+                'tanggal'   => 'nullable|date',
+                'jam_masuk' => 'nullable|date_format:H:i',
+            ]);
+
+            $tanggal = $request->tanggal ?: now('Asia/Jakarta')->format('Y-m-d');
+            $jamMasuk = $request->jam_masuk ?: now('Asia/Jakarta')->format('H:i');
+
+            $waktuMasuk = $tanggal . ' ' . $jamMasuk . ':00';
+        }
+
         Timbangan::create([
             "truk_id" => $request->no_polisi,
             "supir_id" => $request->nama_supir,
@@ -70,6 +85,7 @@ class TimbanganController extends Controller
             "berat_truk" => $request->berat_truk,
             "berat_sampah" => $request->berat_sampah,
             "nama_petugas" => $request->nama_petugas,
+            "waktu_masuk"  => $waktuMasuk,
         ]);
 
         toast('Data berhasil ditambahkan!', 'success');
