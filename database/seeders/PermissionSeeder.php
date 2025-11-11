@@ -38,6 +38,7 @@ class PermissionSeeder extends Seeder
             'truk-create',
             'truk-edit',
             'truk-delete',
+            'timbangan-input-manual'
         ];
 
         foreach ($permissions as $permission) {

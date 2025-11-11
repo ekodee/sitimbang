@@ -40,7 +40,7 @@
                             <label for="jam_masuk">Jam Masuk</label>
                             <input type="time" class="form-control" name="jam_masuk" id="jam_masuk"
                                 value="{{ old('jam_masuk', now('Asia/Jakarta')->format('H:i')) }}"
-                                {{ Auth::user()->getRoleNames()[0] != 'superadmin' ? 'readonly' : '' }}>
+                                @cannot('timbangan-input-manual') readonly @endcannot>
                             @error('jam_masuk')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -50,7 +50,7 @@
                             <label for="tanggal">Tanggal</label>
                             <input type="date" class="form-control" name="tanggal" id="tanggal"
                                 value="{{ old('tanggal', now('Asia/Jakarta')->format('Y-m-d')) }}"
-                                {{ Auth::user()->getRoleNames()[0] != 'superadmin' ? 'readonly' : '' }}>
+                                @cannot('timbangan-input-manual') readonly @endcannot>
                             @error('tanggal')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
