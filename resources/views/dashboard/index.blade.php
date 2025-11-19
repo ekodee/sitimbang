@@ -132,10 +132,10 @@
                         {{-- Grafik --}}
                         <div class="card mt-4">
                             <div class="card-header">
-                                <h5>Grafik Total Berat Sampah per Kecamatan</h5>
-                                <small class="text-muted">
+                                <h3 class="card-title">Grafik Total Berat Sampah per Kecamatan</h5>
+                                <p class="fs-4">
                                     {{ $selectedYear ? "Data tahun $selectedYear" : 'Semua data historis' }}
-                                </small>
+                                </p>
                             </div>
                             <div class="card-body">
                                 <div id="chartKecamatan" style="height: 450px;"></div>
@@ -144,6 +144,7 @@
 
                         {{-- Tabel Timbangan Terbaru --}}
                         <div class="table-responsive mt-4">
+                            <h3>Data Timbangan Terbaru</h3>
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -199,10 +200,23 @@
         Highcharts.chart('chartKecamatan', {
             chart: {
                 type: 'column',
-                backgroundColor: '#f8f9fa'
+                events: {
+                    drilldown: function() {
+                        var chart = this;
+                        chart.setTitle(null, {
+                            text: "Tren grafik perbulan"
+                        });
+                    },
+                    drillup: function() {
+                        var chart = this;
+                        chart.setTitle(null, {
+                            text: "Klik grafik untuk melihat tren per bulan"
+                        });
+                    }
+                }
             },
             title: {
-                text: 'Total Berat Sampah per Kecamatan'
+                text: `Total Berat Sampah per Kecamatan {{ $selectedYear }}`
             },
             subtitle: {
                 text: 'Klik grafik untuk melihat tren per bulan'
@@ -273,7 +287,6 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            // Auto-submit form ketika dropdown tahun berubah
             $('#yearFilter').on('change', function() {
                 $('#filterForm').submit();
             });

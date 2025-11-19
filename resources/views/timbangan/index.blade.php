@@ -74,7 +74,7 @@
                         Apakah Anda yakin ingin menghapus data ini?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                         <form action="{{ route('timbangan.destroy', $timbangan->timbangan_id) }}" method="POST">
                             @csrf
                             @method('DELETE')
@@ -138,7 +138,7 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                     </div>
                 </div>
             </div>

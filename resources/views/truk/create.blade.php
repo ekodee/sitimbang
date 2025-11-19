@@ -23,7 +23,7 @@
                         <div class="form-group mb-3">
                             <label for="jenis_truk">Jenis Truk</label>
                             <select name="jenis_truk" id="jenis_truk"
-                                class="form-select @error('jenis_truk') is-invalid @enderror">
+                                class="form-select myselect @error('jenis_truk') is-invalid @enderror">
                                 <option disabled selected>Pilih Jenis Truk</option>
                                 <option value="Dump Truck" {{ old('jenis_truk') == 'Dump Truck' ? 'selected' : '' }}>Dump
                                     Truck</option>
