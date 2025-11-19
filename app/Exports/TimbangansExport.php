@@ -108,7 +108,7 @@ class TimbangansExport implements FromView, WithStyles, ShouldAutoSize
 
         // Header tabel (dikenali dari baris 13)
         $headerRow = 13;
-        $sheet->getStyle("A{$headerRow}:H{$headerRow}")->applyFromArray([
+        $sheet->getStyle("A{$headerRow}:I{$headerRow}")->applyFromArray([
             'font' => ['bold' => true],
             'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
             'borders' => [
@@ -120,7 +120,7 @@ class TimbangansExport implements FromView, WithStyles, ShouldAutoSize
         $dataStart = $headerRow + 1;
         $dataEnd = $dataStart + count($this->timbangans);
         if ($this->timbangans->count() > 0) {
-            $sheet->getStyle("A{$dataStart}:H{$dataEnd}")->applyFromArray([
+            $sheet->getStyle("A{$dataStart}:I{$dataEnd}")->applyFromArray([
                 'borders' => [
                     'allBorders' => ['borderStyle' => Border::BORDER_THIN],
                 ],

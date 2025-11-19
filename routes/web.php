@@ -14,6 +14,7 @@ use App\Models\Truk;
 use Illuminate\Database\Query\IndexHint;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 use function Pest\Laravel\get;
@@ -49,6 +50,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('user', UserController::class);
     Route::resource('role', RoleController::class);
     Route::post('user-update-role', [UserController::class, 'updateRole'])->name('users.update-role');
+
+    Route::get('/proxy/districts/{id}', function ($id) {
+        $response = Http::get("https://wilayah.id/api/districts/{$id}.json");
+        return response()->json($response->json());
+    });
 });
 
 

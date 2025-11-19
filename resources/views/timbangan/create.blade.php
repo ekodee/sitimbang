@@ -2,8 +2,9 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between">
             <h2 class="card-title">Form Tambah Data Timbangan</h2>
+            <button class="ambilData btn btn-success">Ambil Timbangan</button>
         </div>
         <div class="card-body">
             <form action="{{ route('timbangan.store') }}" method="POST">
@@ -65,7 +66,7 @@
                                 class="form-control @error('berat_total')
                                 is-invalid
                             @enderror"
-                                value="{{ old('berat_total') }}">
+                                value="{{ old('berat_total') }}" @cannot('timbangan-input-manual') readonly @endcannot>
                             @error('berat_total')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -163,6 +164,21 @@
             $('#no_polisiForm').on('change', function() {
                 const truk_id = $(this).val();
                 loadTrukData(truk_id);
+            });
+
+            $('.ambilData').on('click', function() {
+                console.log('hello world from button ambil data');
+                $.ajax({
+                    url: '/proxy/districts/36.71',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response) {
+                            console.log(response.data);
+                            $('#berat_total').val('101010');
+                        }
+                    }
+                });
             });
         });
     </script>

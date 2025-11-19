@@ -15,7 +15,7 @@
     <meta name="author" content="CodedThemes">
 
     <!-- [Favicon] icon -->
-    <link rel="icon" href="{{ asset('template/dist') }}/assets/images/favicon.svg" type="image/x-icon">
+    {{-- <link rel="icon" href="{{ asset('template/dist') }}/assets/images/favicon.svg" type="image/x-icon"> --}}
     <!-- [Google Font] Family -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap"
@@ -23,11 +23,11 @@
     <!-- [Tabler Icons] https://tablericons.com -->
     <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/fonts/tabler-icons.min.css">
     <!-- [Feather Icons] https://feathericons.com -->
-    <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/fonts/feather.css">
+    {{-- <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/fonts/feather.css"> --}}
     <!-- [Font Awesome Icons] https://fontawesome.com/icons -->
-    <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/fonts/fontawesome.css">
+    {{-- <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/fonts/fontawesome.css"> --}}
     <!-- [Material Icons] https://fonts.google.com/icons -->
-    <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/fonts/material.css">
+    {{-- <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/fonts/material.css"> --}}
     <!-- [Template CSS Files] -->
     <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/css/style.css" id="main-style-link">
     <link rel="stylesheet" href="{{ asset('template/dist') }}/assets/css/style-preset.css">
@@ -128,17 +128,8 @@
 
     <script>
         change_box_container('false');
-    </script>
-
-    <script>
         layout_rtl_change('false');
-    </script>
-
-    <script>
         preset_change("preset-1");
-    </script>
-
-    <script>
         font_change("Public-Sans");
     </script>
 

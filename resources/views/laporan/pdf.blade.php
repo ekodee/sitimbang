@@ -136,6 +136,7 @@
     <table>
         <thead>
             <tr>
+                <th>No</th>
                 <th>Tanggal</th>
                 <th>Nama Supir</th>
                 <th>No. Polisi</th>
@@ -149,6 +150,7 @@
         <tbody>
             @foreach ($timbangans as $timbangan)
                 <tr>
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $timbangan->waktu_masuk->format('d-m-Y H:i') }}</td>
                     <td>{{ $timbangan->supirs?->nama }}</td>
                     <td>{{ $timbangan->truks->no_polisi }}</td>

@@ -106,6 +106,8 @@
         input.form-control {
             height: 39px;
         }
+
+        
     </style>
 </head>
 <!-- [Head] end -->
@@ -170,7 +172,7 @@
 
         $('.myselect').select2({
             theme: 'bootstrap-5',
-            width: 'resolve',
+            width: '100%',
         });
     </script>
 
